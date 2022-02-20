@@ -19,22 +19,22 @@ from Utils.ResourceIOFunction import *
 #import sys
 
 
-path = "./Images/Lenna.JPG"
+path = "./Images/takumi.png"
 img = cv2.imread(path, cv2.IMREAD_UNCHANGED)# 入力画像を取得(α値も取得版)
 
-testName = "subColor"
+testName = "dotArt"
 
 #ドット絵風
 if testName == "dotArt":
     filterDP = FilterDotArt(path)
     mozike = 0.1
-    colorNum = 10
+    colorNum = 2
     filterDP.setMozikeValue(mozike)
     filterDP.setColorNum(colorNum)
     dst = filterDP.dotArt(img)# ドット絵化
     dstName = filterDP.getFileName()
     cv2.imwrite(filterDP.getFileName(), img)# 結果を出力
-    dst = makeFabicon(dst, 144, path = filterDP.getFileName())
+#    dst = makeFabicon(dst, 32, path = filterDP.getFileName())
 
 # モザイク
 if testName == "mosaic":

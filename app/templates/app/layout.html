@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - My Django Application</title>
     {% load static %}
-    <link rel="icon" href="{% static 'app/imgs/yureidoru.ico' %}">
+    <link rel="icon" href="{% static 'app/imgs/fabicon.ico' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
@@ -27,6 +27,7 @@
                     <li><a href="{% url 'app:home' %}">Home</a></li>
                     <li><a href="{% url 'app:about' %}">About</a></li>
                     <li><a href="{% url 'app:contact' %}">Contact</a></li>
+                    <li><a href="{% url 'app:upload' %}">Upload</a></li>
                 </ul>
                 {% include 'app/loginpartial.html' %}
             </div>

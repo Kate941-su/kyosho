@@ -25,6 +25,6 @@ urlpatterns = [
          ),
          name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
-#    path('upload/', views.model_form_upload, name='upload') 
+    path('upload/', views.modelFormUpload, name='upload') 
 ]
 

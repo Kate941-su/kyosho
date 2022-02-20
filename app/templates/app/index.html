@@ -1,7 +1,5 @@
 {% extends "app/layout.html" %}
-
 {% block content %}
-
 <div class="jumbotron">
     <h1>画像加工～匠～</h1>
     <p class="lead">あなたの写真をドット絵にします！</p>
@@ -15,6 +13,11 @@
     <input type="file" value="写真を選択してください" onchange="OnFileSelect( this );" multiple />
     <ul id="ID001" ></ul>
 </div>
+{% endblock %}
+{% block scripts %}
+{% load static %}
+<script src="{% static 'app/scripts/buttonClickEvent.js' %}"></script>
+{% endblock %}
 
 <!--
 <div class="row">
@@ -39,10 +42,3 @@
     </div>
 </div>
 -->
-
-{% endblock %}
-
-{% block scripts %}
-{% load static %}
-<script src="{% static 'app/scripts/buttonClickEvent.js' %}"></script>
-{% endblock %}
