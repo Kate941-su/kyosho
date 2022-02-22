@@ -1,8 +1,8 @@
 {% extends "app/layout.html" %}
 {% block content %}
 <div class="jumbotron">
-    <h1>画像加工～匠～</h1>
-    <p class="lead">あなたの写真をドット絵にします！</p>
+    <h1>画像加工～巨匠～</h1>
+    <p>豊富なフィルターであなたの写真を加工します。</p>
     <!--<p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">写真を選ぶ&raquo;</a></p>-->   
     <div class="buttonKinds">
         <input type="button" value="二値化" id = "btn_threshold">
@@ -10,35 +10,19 @@
         <input type="button" value="減色" id = "btn_subColor">
         <input type="button" value="ドット絵風" id = "btn_dotArt">
     </div> 
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+
+    <!--
     <input type="file" value="写真を選択してください" onchange="OnFileSelect( this );" multiple />
     <ul id="ID001" ></ul>
+    -->
 </div>
 {% endblock %}
 {% block scripts %}
 {% load static %}
 <script src="{% static 'app/scripts/buttonClickEvent.js' %}"></script>
 {% endblock %}
-
-<!--
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Django gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://djangobook.com/django-tutorials/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
-    </div>
-</div>
--->

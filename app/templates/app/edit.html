@@ -1,0 +1,13 @@
+{% extends "app/layout.html" %}
+{% block content %}
+<img src="{{ data.photo.url }}" width="10%" height="10%"/>
+<form action="{% url 'app:edit' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" name="button_gray" value="gray">
+</form>
+<img src="{{ data.gray.url }}" width="10%" height="10%"/>
+{% endblock %}
+{% block scripts %}
+{% load static %}
+<script src="{% static 'app/scripts/buttonClickEvent.js' %}"></script>
+{% endblock %}

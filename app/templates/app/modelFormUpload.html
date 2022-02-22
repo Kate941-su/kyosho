@@ -1,6 +1,7 @@
 {% extends "app/layout.html" %}
 {% block content %}
 <!--enctypeを指定しないとうまくアップロードできない-->
+<h1>Upload.</h1>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

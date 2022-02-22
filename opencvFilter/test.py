@@ -19,16 +19,16 @@ from Utils.ResourceIOFunction import *
 #import sys
 
 
-path = "./Images/takumi.png"
+path = "./Images/shiga.jpg"
 img = cv2.imread(path, cv2.IMREAD_UNCHANGED)# 入力画像を取得(α値も取得版)
 
-testName = "dotArt"
+testName = "subColor"
 
-#ドット絵風
+# ドット絵風
 if testName == "dotArt":
     filterDP = FilterDotArt(path)
-    mozike = 0.1
-    colorNum = 2
+    mozike = 1
+    colorNum = 10
     filterDP.setMozikeValue(mozike)
     filterDP.setColorNum(colorNum)
     dst = filterDP.dotArt(img)# ドット絵化
@@ -48,7 +48,7 @@ if testName == "mosaic":
 # 減色
 if testName == "subColor":
     filterSubColor = FilterSubColor(path)
-    colorNum = 3
+    colorNum = 9
     filterSubColor.setColorNum(colorNum)
     dst = filterSubColor.subColor(img)
     dstName = filterSubColor.getFileName()
