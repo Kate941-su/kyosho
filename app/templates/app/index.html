@@ -4,17 +4,21 @@
     <h1>画像加工～巨匠～</h1>
     <p>豊富なフィルターであなたの写真を加工します。</p>
     <!--<p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">写真を選ぶ&raquo;</a></p>-->   
-    <div class="buttonKinds">
-        <input type="button" value="二値化" id = "btn_threshold">
-        <input type="button" value="モザイク" id = "btn_mosaic">
-        <input type="button" value="減色" id = "btn_subColor">
-        <input type="button" value="ドット絵風" id = "btn_dotArt">
-    </div> 
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Upload</button>
+        <button type="submit"  name = "gray" id = "btn_gray">グレー変換</button>
+        <button type="submit" id = "btn_threshold">二値化(ダミー)</button>
+        <button type="submit" id = "btn_mosaic">モザイク(ダミー)</button>
+        <button type="submit" id = "btn_subColor">減色(ダミー)</button>
+        <button type="submit" id = "btn_dotArt">ドット絵風(ダミー)</button>
     </form>
+    <tr>
+        <td>{{ obj.description }}</td>
+        <td><img src="{{ obj.photo.url }}" width="300" height="300"/></td>
+        <td><img src="{{ obj.gray.url }}" width="300" height="300"/></td>
+    <tr>
 
     <!--
     <input type="file" value="写真を選択してください" onchange="OnFileSelect( this );" multiple />

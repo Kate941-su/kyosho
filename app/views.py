@@ -13,10 +13,8 @@ from django.conf import settings
 
 # home関数ビュー
 def home(request):
-    """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    print("hello")
-    obj = Document.objects.all()
+    post = request.POST
     if request.method == 'POST':
         # フォームのひな型をforms.pyモジュールから作成する
         form = DocumentForm(request.POST, request.FILES)
@@ -24,15 +22,46 @@ def home(request):
             form.save()
     else:
         form = DocumentForm()
+    obj = Document.objects.all()
+    objLast = obj[len(obj) - 1]
+    if ("gray" in request.POST):
+        gray(objLast.photo.url)
+        # フィールドの内容を書き換える。
+        objLast.gray = "gray/gray.jpg" 
+    objLast.save()
     return render(
         request,
         'app/index.html',
         {
             'title':'Home Page',
             'year': datetime.now().year + 3,
-            'form' : form
+            'form' : form,
+            'obj' : objLast,
         }
     )
+
+def edit(request, num):    
+    obj = Document.objects.get(id = num)
+    if request.method == 'POST':
+        if 'button_gray' in request.POST:
+            gray(obj.photo.url)
+            obj.gray = "gallery/gray.jpg" # モデルと対応している
+            obj.save()
+            return redirect('app:edit')
+#            return redirect('app:index')
+    params = {'data': obj}
+    return render(request, 'app/edit.html', params)
+#    return render(request, 'app/index.html', params)
+
+def gray(url):
+    path = "." + url
+    img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+    try:
+        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    except:
+        return
+    output = "./media/gray/gray.jpg"
+    cv2.imwrite(output, img_gray)
 
 # contact関数ビュー
 def contact(request):
@@ -83,23 +112,3 @@ def modelFormUpload(request):
 4 : グレー画像の場所を指定、save()でレコードの更新を行う
 """
 
-def edit(request):    
-    obj = Document.objects.all()
-    if request.method == 'POST':
-        if 'button_gray' in request.POST:
-            gray(obj.photo.url)
-            obj.gray = "gallery/gray.jpg" # モデルと対応している
-            obj.save()
-#            return redirect('app:edit')
-            return redirect('app:index')
-    params = {'data': obj}
-#    return render(request, 'app/edit.html', params)
-    return render(request, 'app/index.html', params)
-
-def gray(url):
-    path = settings.BASE_DIR + url# settings.pyをモジュールとしてインポートしてその変数としてBASE_DIRを使用している
-    print(path)
-    img = cv2.imread(path)
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    output = settings.BASE_DIR + "/media/gallery/gray.jpg"
-    cv2.imwrite(output, img_gray)
