@@ -14,7 +14,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('upload/', views.modelFormUpload, name='upload'),
-    path('edit/<int:num>', views.edit, name='edit'),
+#    path('edit/<int:num>', views.edit, name='edit'),
     path('login/',
         LoginView.as_view
         (

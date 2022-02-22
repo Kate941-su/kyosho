@@ -1,6 +1,6 @@
 // ボタンクリックイベントが正しく届いているかテストする 
 function testButtonClickEvent(){
-    alert('javaScriptは正常に機能しています');
+//    alert('javaScriptは正常に機能しています');
 }
 
 function OnFileSelect( inputElement )

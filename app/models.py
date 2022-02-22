@@ -10,5 +10,5 @@ class Document(models.Model):
     # アップロードした時刻
     uploaded_at = models.DateTimeField(auto_now_add=True)
     # ImageFiled->画像をデータベースで扱うためのクラス
-    gray = models.ImageField(default='Not Set') # グレースケール返還後の画像
+    filterPhoto = models.ImageField(default='Not Set') # グレースケール返還後の画像
 

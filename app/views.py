@@ -1,15 +1,15 @@
-"""
-Definition of views.
-"""
-
+#2021/02/22 kitaya kaito
+import cv2
 from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
-# フォームモジュールから特定のクラスをインポートする
+from django.conf import settings
 from .forms import DocumentForm
 from .models import Document
-import cv2
-from django.conf import settings
+from .opencvFilter.Filters.FilterDotArt import FilterDotArt
+from .opencvFilter.Filters.FilterMosaic import FilterMosaic
+from .opencvFilter.Filters.FilterSubColor import FilterSubColor
+from .opencvFilter.Filters.FilterThreshold import FilterThreshold
 
 # home関数ビュー
 def home(request):
@@ -24,10 +24,23 @@ def home(request):
         form = DocumentForm()
     obj = Document.objects.all()
     objLast = obj[len(obj) - 1]
-    if ("gray" in request.POST):
-        gray(objLast.photo.url)
-        # フィールドの内容を書き換える。
-        objLast.gray = "gray/gray.jpg" 
+    objPath = objLast.photo.url
+    if ("gray" in request.POST): # グレー変換のとき
+        gray(objPath)
+        objLast.filterPhoto = "filter/gray/gray.jpg"
+    elif ("threshold" in request.POST): # 二値化のとき
+        filterThreshold = FilterThreshold(objLast)
+#        filterThreshold.threshold(img)
+        objLast.filterPhoto = "filter/threshold/threshold.jpg"
+    elif ("mosaic" in request.POST): # モザイクの時
+        gray(objPath)
+        objLast.filterPhoto = "filter/mosaic/mosaic.jpg"
+    elif ("dotArt" in request.POST): # ドット絵風の時
+        gray(objPath)
+        objLast.filterPhoto = "filter/dotArt/dotArt.jpg"
+    elif ("subColor" in request.POST): # ドット絵風の時
+        gray(objPath)
+        objLast.filterPhoto = "filter/subColor/subColor.jpg"
     objLast.save()
     return render(
         request,
@@ -39,7 +52,7 @@ def home(request):
             'obj' : objLast,
         }
     )
-
+"""
 def edit(request, num):    
     obj = Document.objects.get(id = num)
     if request.method == 'POST':
@@ -52,7 +65,7 @@ def edit(request, num):
     params = {'data': obj}
     return render(request, 'app/edit.html', params)
 #    return render(request, 'app/index.html', params)
-
+"""
 def gray(url):
     path = "." + url
     img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
@@ -60,7 +73,7 @@ def gray(url):
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     except:
         return
-    output = "./media/gray/gray.jpg"
+    output = "./media/filter/gray/gray.jpg"
     cv2.imwrite(output, img_gray)
 
 # contact関数ビュー

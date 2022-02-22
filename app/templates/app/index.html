@@ -8,16 +8,16 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit"  name = "gray" id = "btn_gray">グレー変換</button>
-        <button type="submit" id = "btn_threshold">二値化(ダミー)</button>
-        <button type="submit" id = "btn_mosaic">モザイク(ダミー)</button>
-        <button type="submit" id = "btn_subColor">減色(ダミー)</button>
-        <button type="submit" id = "btn_dotArt">ドット絵風(ダミー)</button>
+        <button type="submit" name = "gray" id = "btn_gray">グレー変換</button>
+        <button type="submit" name = "threshold" id = "btn_threshold">二値化</button>
+        <button type="submit" name = "mosaic" id = "btn_mosaic">モザイク</button>
+        <button type="submit" name = "subColor" id = "btn_subColor">減色</button>
+        <button type="submit" name = "dotArt" id = "btn_dotArt">ドット絵風</button>
     </form>
     <tr>
         <td>{{ obj.description }}</td>
         <td><img src="{{ obj.photo.url }}" width="300" height="300"/></td>
-        <td><img src="{{ obj.gray.url }}" width="300" height="300"/></td>
+        <td><img src="{{ obj.filterPhoto.url }}" width="300" height="300"/></td>
     <tr>
 
     <!--
