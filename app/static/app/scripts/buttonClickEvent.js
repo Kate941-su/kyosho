@@ -29,7 +29,7 @@ function OnFileSelect( inputElement )
     }
 }
 
-
+/*
 let button_threshold = document.getElementById('btn_threshold');
 let button_mosaic = document.getElementById('btn_mosaic');
 let button_subColor = document.getElementById('btn_subColor');
@@ -38,5 +38,5 @@ button_threshold.addEventListener('click', testButtonClickEvent);
 button_mosaic.addEventListener('click', testButtonClickEvent);
 button_subColor.addEventListener('click', testButtonClickEvent);
 button_dotArt.addEventListener('click', testButtonClickEvent);
-
+*/
 

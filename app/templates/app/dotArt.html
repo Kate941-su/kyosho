@@ -1,0 +1,25 @@
+{% extends "app/layout.html" %}
+{% block myCss %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'app/css/mycss.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <h1>{{ filterName }}</h1>
+    <p>説明</p>
+    <!--<p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">写真を選ぶ&raquo;</a></p>-->   
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+       <!--{{ form.as_p }}--> 
+        <input type="file" name = "avatar" value="写真を選択してください" onchange="OnFileSelect( this );" required/><!--multipleで複数ファイル-->
+        <button type="submit" name = "subColor" id = "btn_subColor">{{ filterName }}</button>
+    </form>
+    <ul id="ID001" ></ul>
+    <img src="{{ dstPath }}" width="300" height="300"/>
+    {% include 'app/htmlComponents/returnButton.html' %}
+</div>
+{% endblock %}
+{% block scripts %}
+{% load static %}
+<script src="{% static 'app/scripts/buttonClickEvent.js' %}"></script>
+{% endblock %}
