@@ -22,6 +22,10 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                    
 # 画像をポストするフォーム扱うクラス
 class DocumentForm(forms.ModelForm):
+    #nameをrequired = Falseにする
+    def __init__(self, *args, **kwd):
+        super(DocumentForm, self).__init__(*args, **kwd)
+        self.fields["photo"].required = True
     class Meta:
         model = Document
         fields = ('description', 'photo', )

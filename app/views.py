@@ -1,5 +1,6 @@
 #2021/02/22 kitaya kaito
 import cv2
+import os
 from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
@@ -22,25 +23,58 @@ def home(request):
             form.save()
     else:
         form = DocumentForm()
+    # DBのクエリセットを取得する。
     obj = Document.objects.all()
+    # アップロードされた画像のデータを取得する。
     objLast = obj[len(obj) - 1]
-    objPath = objLast.photo.url
+    # ファイル名を取得する。
+    #(改良の余地あり)
+    objPath = "." + objLast.photo.url
+    # パスを除いたファイル名を得る
+    fileName = os.path.splitext(os.path.basename(objPath))[0]
+    filedata = request.FILES.get("avatar")
+    mediaDir = "./media/"
+    temporaryPath = mediaDir + "temporary/temporary.png"
+    dstPath = ""
+    #変換用画像を作成する(ファイルフォーマットは選べるようにする)
+    if (len(filedata) !=0):
+        with open(temporaryPath, "wb+") as f:
+            for chunk in filedata:
+                f.write(chunk)
     if ("gray" in request.POST): # グレー変換のとき
-        gray(objPath)
+        gray(temporaryPath)
         objLast.filterPhoto = "filter/gray/gray.jpg"
+        dstPath = mediaDir + "filter/gray/gray.jpg"
     elif ("threshold" in request.POST): # 二値化のとき
-        filterThreshold = FilterThreshold(objLast)
-#        filterThreshold.threshold(img)
-        objLast.filterPhoto = "filter/threshold/threshold.jpg"
+        filterThreshold = FilterThreshold(temporaryPath)
+        filterThreshold.makePictureForMember()
+        outPath = "filter/threshold/threshold.jpg"
+        dstPath = mediaDir + outPath
+        cv2.imwrite(mediaDir + outPath, filterThreshold.getImage())
+        objLast.filterPhoto = outPath
     elif ("mosaic" in request.POST): # モザイクの時
-        gray(objPath)
-        objLast.filterPhoto = "filter/mosaic/mosaic.jpg"
+        filterMosaic = FilterMosaic(temporaryPath)
+        filterMosaic.makePictureForMember()
+        outPath = "filter/mosaic/mosaic.jpg"
+        dstPath = mediaDir + outPath
+        cv2.imwrite(mediaDir + outPath, filterMosaic.getImage())
+        objLast.filterPhoto = outPath
     elif ("dotArt" in request.POST): # ドット絵風の時
-        gray(objPath)
-        objLast.filterPhoto = "filter/dotArt/dotArt.jpg"
-    elif ("subColor" in request.POST): # ドット絵風の時
-        gray(objPath)
-        objLast.filterPhoto = "filter/subColor/subColor.jpg"
+        filterDotArt = FilterDotArt(temporaryPath)
+        filterDotArt.makePictureForMember()
+        outPath = "filter/dotArt/dotArt.jpg"
+        dstPath = mediaDir + outPath
+        cv2.imwrite(mediaDir + outPath, filterDotArt.getImage())
+        objLast.filterPhoto = outPath
+    elif ("subColor" in request.POST): # 減色の時
+        filterSubColor = FilterSubColor(temporaryPath)
+        filterSubColor.makePictureForMember()
+        outPath = "filter/subColor/subColor.jpg"
+        dstPath = mediaDir + outPath
+        cv2.imwrite(mediaDir + outPath, filterSubColor.getImage())
+        objLast.filterPhoto = outPath
+    # テスト用
+#    objLast.photo = objLast.filterPhoto
     objLast.save()
     return render(
         request,
@@ -50,6 +84,7 @@ def home(request):
             'year': datetime.now().year + 3,
             'form' : form,
             'obj' : objLast,
+            'dstPath' : dstPath,
         }
     )
 """
@@ -67,8 +102,7 @@ def edit(request, num):
 #    return render(request, 'app/index.html', params)
 """
 def gray(url):
-    path = "." + url
-    img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+    img = cv2.imread(url, cv2.IMREAD_UNCHANGED)
     try:
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     except:
@@ -117,6 +151,8 @@ def modelFormUpload(request):
     return render(request, 'app/modelFormUpload.html', {
         'form': form
     })
+
+
 
 """
 1 : ボタンが押されたら、元画像の保存場所を取得する

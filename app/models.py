@@ -6,7 +6,7 @@ class Document(models.Model):
     # ファイルのアップロード先を(documents/)にする。
     document = models.FileField(upload_to = 'documents/')
     # 写真をアップロードする
-    photo = models.ImageField(upload_to='gallery/', default='SOME STRING')
+    photo = models.ImageField(upload_to='gallery/', default='')
     # アップロードした時刻
     uploaded_at = models.DateTimeField(auto_now_add=True)
     # ImageFiled->画像をデータベースで扱うためのクラス

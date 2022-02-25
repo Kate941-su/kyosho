@@ -17,7 +17,8 @@ function OnFileSelect( inputElement )
         let file = fileList[ i ];   // ファイルを取得
         // 読み込み完了時の処理を追加
         fileReader.onload = function() {
-			imageList += "<li><img src=\"" + this.result + "\" /></li>\r\n"; // <li>,<img>タグの生成
+            //アスペクト比を変えないように変更する
+			imageList += "<li><img src=\"" + this.result + "\" width=\"300\" height=\"300\" ></li>\r\n"; // <li>,<img>タグの生成
             // 選択されたファイルすべの処理が完了したら、<ul>タグに流し込む
             if ( ++loadCompleteCount == fileCount ) {
                 document.getElementById( "ID001" ).innerHTML = imageList;// <ul>タグに<li>,<img>を流し込む

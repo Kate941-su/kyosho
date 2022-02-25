@@ -16,29 +16,32 @@ from Filters.FilterMosaic import FilterMosaic
 from Filters.FilterSubColor import FilterSubColor
 from Filters.FilterThreshold import FilterThreshold
 from Utils.ResourceIOFunction import *
-#import sys
 
 
-path = "./Images/shiga.jpg"
+
+path = "./Images/flower.jpg"
 img = cv2.imread(path, cv2.IMREAD_UNCHANGED)# 入力画像を取得(α値も取得版)
 
-testName = "subColor"
+testName = "threshold"
 
 # ドット絵風
 if testName == "dotArt":
     filterDP = FilterDotArt(path)
     mozike = 1
     colorNum = 10
+    name = filterDP.getFilterName()
     filterDP.setMozikeValue(mozike)
     filterDP.setColorNum(colorNum)
+    filterDP.makeDotArtForMember()
     dst = filterDP.dotArt(img)# ドット絵化
     dstName = filterDP.getFileName()
-    cv2.imwrite(filterDP.getFileName(), img)# 結果を出力
+    cv2.imwrite(filterDP.getFileName(), filterDP.getImage())# 結果を出力
 #    dst = makeFabicon(dst, 32, path = filterDP.getFileName())
 
 # モザイク
 if testName == "mosaic":
     filterMosaic = FilterMosaic(path)
+    name = filterMosaic.getFilterName()
     mosaic = 0.05
     filterMosaic.setMosaicValue(mosaic)
     dst = filterMosaic.executeMosaic(img)
@@ -60,3 +63,28 @@ if testName == "threshold":
     dst = filterThreshold.threshold(img)
     ret, th = filterThreshold.threshold(img)
     cv2.imwrite(filterThreshold.getFileName(), th)# 結果を出力
+
+"""
+def outter(func):
+    def inner(num):
+        try:
+            return func(num)
+        except ZeroDivisionError:
+            print("error has occured!")
+            return
+    return inner
+
+def oldFunc(num):
+    return 5 / num
+
+newFunc = outter(oldFunc)
+
+print(newFunc(0))
+"""
+
+
+    
+    
+    
+    
+
