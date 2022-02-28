@@ -72,8 +72,8 @@ def viewFilter(request):
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/dotArt.html"
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき
-            cv2.imwrite(temporaryPath, useFilter.getImage())
+    if (type(filedata) != type(None)): # ファイルデータが届いていないとき
+        cv2.imwrite(temporaryPath, useFilter.getImage())
     filterName = useFilter.getFilterName()
     return render(
         request,
