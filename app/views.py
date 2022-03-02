@@ -1,5 +1,6 @@
 #2021/02/22 kitaya kaito
 import cv2
+import shutil
 import os
 from datetime import datetime
 from django.shortcuts import render, redirect
@@ -40,6 +41,7 @@ def viewFilter(request):
     mediaDir = "./media/"
     # 出力先パス
     temporaryPath = mediaDir + "temporary/temporary.png"
+    thumbnailPath = mediaDir + "thumbnail/thumbnail.png"
     dstPath = ""
     outPath = ""
     #元画像を取得(ファイルフォーマットは選べるようにする)
@@ -48,6 +50,7 @@ def viewFilter(request):
             with open(temporaryPath, "wb+") as f:
                 for chunk in filedata:
                     f.write(chunk)
+            shutil.copy(temporaryPath, thumbnailPath)
     requestName = request.path
     useFilter = None
     retHtml = ""
@@ -82,6 +85,7 @@ def viewFilter(request):
             'title':'Home Page',
             'year': datetime.now().year,
             'form' : form,
+            'srcPath' : "/media/thumbnail/thumbnail.png",
             'dstPath' : "/media/temporary/temporary.png",
             'filterName' : filterName
         }
