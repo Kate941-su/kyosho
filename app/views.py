@@ -6,13 +6,16 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.conf import settings
+from ipware import get_client_ip
 from .forms import DocumentForm
 from .models import Document
+from .randomUtil import getRandomString, getHashFromIpAddress
 from .opencvFilter.Filters.FilterDotArt import FilterDotArt
 from .opencvFilter.Filters.FilterMosaic import FilterMosaic
 from .opencvFilter.Filters.FilterSubColor import FilterSubColor
 from .opencvFilter.Filters.FilterThreshold import FilterThreshold
 
+RANDOM_WORD_COUNT = 10
 
 def home(request):
     assert isinstance(request, HttpRequest)
@@ -29,6 +32,14 @@ def home(request):
 def viewFilter(request):
     assert isinstance(request, HttpRequest)
     post = request.POST
+    # クライアントのipアドレスを取得
+    client_addr, _ = get_client_ip(request)
+    # ipアドレスからハッシュ値を取得
+    ipHash = getHashFromIpAddress(client_addr)
+    # 出力先ファイルのルートディレクトリ
+    mediaDir = "./media/"
+    if (not os.path.exists(mediaDir + ipHash)):
+        os.makedirs(mediaDir + ipHash)
     if request.method == 'POST':
         # フォームのひな型をforms.pyモジュールから作成する
         form = DocumentForm(request.POST, request.FILES)
@@ -38,45 +49,43 @@ def viewFilter(request):
         form = DocumentForm()
     # サブミットされたファイルデータ
     filedata = request.FILES.get("avatar")
-    mediaDir = "./media/"
+    # 原画パス(ここら辺の挙動は後ほど詰める)
+    srcPath = mediaDir + ipHash + "/thumbnail-" + getRandomString(RANDOM_WORD_COUNT) + "-base.png"
     # 出力先パス
-    temporaryPath = mediaDir + "temporary/temporary.png"
-    thumbnailPath = mediaDir + "thumbnail/thumbnail.png"
-    dstPath = ""
-    outPath = ""
+    dstPath = mediaDir + ipHash + "/temporary-" + getRandomString(RANDOM_WORD_COUNT) + ".png"
     #元画像を取得(ファイルフォーマットは選べるようにする)
     if (type(filedata) != type(None)):
         if (len(filedata) !=0):
-            with open(temporaryPath, "wb+") as f:
+            with open(dstPath, "wb+") as f:
                 for chunk in filedata:
                     f.write(chunk)
-            shutil.copy(temporaryPath, thumbnailPath)
+            shutil.copy(dstPath, srcPath)
     requestName = request.path
     useFilter = None
     retHtml = ""
     # リクエストに応じて適切なフィルターを適用する
     if (requestName == "/subColor/"): # 減色のとき
-        useFilter = FilterSubColor(temporaryPath)
+        useFilter = FilterSubColor(dstPath)
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/subColor.html"
     elif (requestName == "/mosaic/"): # モザイクのとき
-        useFilter = FilterMosaic(temporaryPath)
+        useFilter = FilterMosaic(dstPath)
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/mosaic.html"
     elif (requestName == "/threshold/"): # 二値化のとき
-        useFilter = FilterThreshold(temporaryPath)
+        useFilter = FilterThreshold(dstPath)
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/threshold.html"
     elif (requestName == "/dotArt/"): # ドット絵風のとき
-        useFilter = FilterDotArt(temporaryPath)
+        useFilter = FilterDotArt(dstPath)
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/dotArt.html"
     if (type(filedata) != type(None)): # ファイルデータが届いていないとき
-        cv2.imwrite(temporaryPath, useFilter.getImage())
+        cv2.imwrite(dstPath, useFilter.getImage())
     filterName = useFilter.getFilterName()
     return render(
         request,
@@ -85,8 +94,8 @@ def viewFilter(request):
             'title':'Home Page',
             'year': datetime.now().year,
             'form' : form,
-            'srcPath' : "/media/thumbnail/thumbnail.png",
-            'dstPath' : "/media/temporary/temporary.png",
+            'srcPath' : srcPath.lstrip("."),# ./mediaではだめ。/mediaにしないといけない
+            'dstPath' : dstPath.lstrip("."),# ./mediaではだめ。/mediaにしないといけない
             'filterName' : filterName
         }
     )
@@ -234,7 +243,7 @@ def modelFormUpload(request):
     return render(request, 'app/modelFormUpload.html', {
         'form': form
     })
-
+ 
 
 
 """

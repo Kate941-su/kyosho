@@ -32,6 +32,7 @@ function OnFileSelect( inputElement )
         // ファイルの読み込み(Data URI Schemeの取得)
         fileReader.readAsDataURL( file );
     }
+    document.getElementById("btn_behind").click();
 }
 
 /*

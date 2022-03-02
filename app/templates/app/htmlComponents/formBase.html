@@ -6,7 +6,7 @@
         {% csrf_token %}
        <!--{{ form.as_p }}--> 
         <input type="file" name = "avatar" value="写真を選択してください" onchange="OnFileSelect( this );" required/><!--multipleで複数ファイル-->
-        <button type="submit" name = "subColor" id = "btn_subColor">{{ filterName }}</button>
+        <button type="submit" name = "subColor" id = "btn_behind" style="display:none">{{ filterName }}</button>
     </form>
     <div id="ID001" >
         {% load static %}
@@ -14,6 +14,7 @@
         <img src="{{ dstPath }}" id="filterImage" width="300" height="300" onerror="onErrorFilterImage( this )">
     </div>
     {% include 'app/htmlComponents/returnButton.html' %}
+    {% include 'app/htmlComponents/downloadButton.html' %}
     {% load static %}
     <script src="{% static 'app/scripts/onErrorEvent.js' %}"></script>
 </div>
