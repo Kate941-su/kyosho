@@ -19,7 +19,7 @@ from ..Utils.ResourceIOFunction import *
 # おまじない
 sys.path.append('../')
 FILTER_NAME = "_mosaic"
-Filter_ALIAS = "モザイク"
+FILTER_ALIAS = "モザイク"
 
 class FilterMosaic(Filter):
     
