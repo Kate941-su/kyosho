@@ -10,15 +10,14 @@ Created on Sun Feb 13 21:31:23 2022
 # -*- coding: utf-8 -*-
 import cv2
 import numpy as np
-from PIL import Image
 import sys
-sys.path.append('../')
+from PIL import Image
 from .Filter import Filter 
-# テスト
-#from Filter import Filter 
 from Utils.FilterFunction import *
 from Utils.ResourceIOFunction import *
 
+# おまじない
+sys.path.append('../')
 FILTER_NAME = "_threshold"
 
 class FilterThreshold(Filter):
@@ -27,6 +26,14 @@ class FilterThreshold(Filter):
     def __init__(self, imgPath):
         super().__init__(imgPath)
         self.colorNum = 8
+        
+    # フィルター名を取得する。
+    def getFilterName(self):
+        return FILTER_NAME
+        
+    # メンバ用の絵を作成する
+    def makeDotArtForMember(self):
+        self.img , dummy = self.threshold(self.img)
         
     # 二値化する
     # @ret : 二値化の閾値

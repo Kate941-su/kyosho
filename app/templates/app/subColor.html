@@ -1,0 +1,14 @@
+{% extends "app/layout.html" %}
+{% block myCss %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'app/css/mycss.css' %}" />
+{% endblock %}
+
+{% block content %}
+{% include 'app/htmlComponents/formBase.html' %}
+{% endblock %}
+
+{% block scripts %}
+{% load static %}
+<script src="{% static 'app/scripts/buttonClickEvent.js' %}"></script>
+{% endblock %}

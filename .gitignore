@@ -1,0 +1,6 @@
+kyoshoEnv
+DjangoWebProject1/__pycache__
+app/__pycache__
+*.bat
+db.sqlite3
+*.pptx
