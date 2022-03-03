@@ -19,6 +19,7 @@ from ..Utils.ResourceIOFunction import *
 # おまじない
 sys.path.append('../')
 FILTER_NAME = "_mosaic"
+Filter_ALIAS = "モザイク"
 
 class FilterMosaic(Filter):
     
@@ -34,6 +35,10 @@ class FilterMosaic(Filter):
     # フィルター名を取得する。
     def getFilterName(self):
         return FILTER_NAME
+
+    # フィルターのエイリアスを取得する。
+    def getFilterAlias(self):
+        return FILTER_ALIAS
 
     # モザイク処理をする
     # @alpha : モザイク一個の大きさ

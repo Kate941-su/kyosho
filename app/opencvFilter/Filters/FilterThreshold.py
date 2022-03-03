@@ -19,7 +19,7 @@ from ..Utils.ResourceIOFunction import *
 # おまじない
 sys.path.append('../')
 FILTER_NAME = "_threshold"
-
+FILTER_ALIAS = "二値化"
 class FilterThreshold(Filter):
 
     #　コンストラクタ
@@ -30,6 +30,10 @@ class FilterThreshold(Filter):
     # フィルター名を取得する。
     def getFilterName(self):
         return FILTER_NAME
+
+    # フィルターのエイリアスを取得する。
+    def getFilterAlias(self):
+        return FILTER_ALIAS
 
     # メンバ用の絵を作成する
     def makePictureForMember(self):

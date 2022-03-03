@@ -1,4 +1,4 @@
-#2021/02/22 kitaya kaito
+#2022/02/22 kitaya kaito
 import cv2
 import shutil
 import os
@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.conf import settings
 from ipware import get_client_ip
+from .FilterManagement import FilterManagement
 from .forms import DocumentForm
 from .models import Document
 from .randomUtil import getRandomString, getHashFromIpAddress
@@ -17,6 +18,7 @@ from .opencvFilter.Filters.FilterThreshold import FilterThreshold
 
 RANDOM_WORD_COUNT = 10
 
+# ホーム画面のview
 def home(request):
     assert isinstance(request, HttpRequest)
     return render(
@@ -29,6 +31,7 @@ def home(request):
         }
     )
 
+# 各フィルター画面のview
 def viewFilter(request):
     assert isinstance(request, HttpRequest)
     post = request.POST
@@ -86,19 +89,65 @@ def viewFilter(request):
         retHtml = "app/dotArt.html"
     if (type(filedata) != type(None)): # ファイルデータが届いていないとき
         cv2.imwrite(dstPath, useFilter.getImage())
-    filterName = useFilter.getFilterName()
+    filterAlias = useFilter.getFilterAlias()
+    fm = FilterManagement(useFilter.getFilterName())
+    explain = fm.getExplain()
     return render(
         request,
-        retHtml,
+        retHtml, # は変数名とテンプレート名をそろえること
         {
-            'title':'Home Page',
+            'title': "画像加工アプリ～巨匠～",
             'year': datetime.now().year,
             'form' : form,
             'srcPath' : srcPath.lstrip("."),# ./mediaではだめ。/mediaにしないといけない
             'dstPath' : dstPath.lstrip("."),# ./mediaではだめ。/mediaにしないといけない
-            'filterName' : filterName
+            'filterAlias' : filterAlias,
+            'explain' : explain,
         }
     )
+
+# contactについてのview
+def contact(request):
+    """Renders the contact page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/contact.html',
+        {
+            'title':'Contact',
+            'message':'Your contact page.',
+            'year':datetime.now().year,
+        }
+    )
+
+# aboutについてのview
+def about(request):
+    """Renders the about page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/about.html',
+        {
+            'title':'About',
+            'message':'Your application description page.',
+            'year':datetime.now().year,
+        }
+    )
+
+# テストのフォーム関数ビュー
+def modelFormUpload(request):
+    if request.method == 'POST':
+        # フォームを
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('app:home')
+    else:
+        form = DocumentForm()
+    return render(request, 'app/modelFormUpload.html', {
+        'form': form
+    })
+ 
 
 
 
@@ -192,64 +241,5 @@ def edit(request, num):
     params = {'data': obj}
     return render(request, 'app/edit.html', params)
 #    return render(request, 'app/index.html', params)
-"""
-def gray(url):
-    img = cv2.imread(url, cv2.IMREAD_UNCHANGED)
-    try:
-        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    except:
-        return
-    output = "./media/filter/gray/gray.jpg"
-    cv2.imwrite(output, img_gray)
-
-# contact関数ビュー
-def contact(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/contact.html',
-        {
-            'title':'Contact',
-            'message':'Your contact page.',
-            'year':datetime.now().year,
-        }
-    )
-
-# about関数ビュー
-def about(request):
-    """Renders the about page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/about.html',
-        {
-            'title':'About',
-            'message':'Your application description page.',
-            'year':datetime.now().year,
-        }
-    )
-
-# テストのフォーム関数ビュー
-def modelFormUpload(request):
-    if request.method == 'POST':
-        # フォームを
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('app:home')
-    else:
-        form = DocumentForm()
-    return render(request, 'app/modelFormUpload.html', {
-        'form': form
-    })
- 
-
-
-"""
-1 : ボタンが押されたら、元画像の保存場所を取得する
-2 : gray関数内で元画像を読み込み、グレースケール変換する
-3 : “gray.jpg”と言う名前でグレー画像を保存する
-4 : グレー画像の場所を指定、save()でレコードの更新を行う
 """
 

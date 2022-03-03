@@ -18,6 +18,7 @@ from ..Utils.ResourceIOFunction import *
 # おまじない
 sys.path.append('../')
 FILTER_NAME = "_"
+FILTER_ALIAS = "_"
 
 class Filter(metaclass = ABCMeta):
 
@@ -35,6 +36,11 @@ class Filter(metaclass = ABCMeta):
     @abstractmethod
     def getFilterName(self):
         return FILTER_NAME
+
+    # フィルターのエイリアスを取得する。
+    @abstractmethod
+    def getFilterAlias(self):
+        return FILTER_ALIAS
 
     # コンストラクタ
     def __init__(self, imgPath):

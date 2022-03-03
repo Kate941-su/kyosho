@@ -19,6 +19,7 @@ from ..Utils.ResourceIOFunction import *
 # おまじない
 sys.path.append('../')
 FILTER_NAME = "_dotArt"
+FILTER_ALIAS = "ドット絵風"
 
 class FilterDotArt(Filter):
 
@@ -31,6 +32,10 @@ class FilterDotArt(Filter):
     # フィルター名を取得する。
     def getFilterName(self):
         return FILTER_NAME
+
+    # フィルターのエイリアスを取得する。
+    def getFilterAlias(self):
+        return FILTER_ALIAS
 
     #ドット絵を作成する（メンバ用）
     def makePictureForMember(self):

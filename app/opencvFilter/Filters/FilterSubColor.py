@@ -19,6 +19,7 @@ from ..Utils.ResourceIOFunction import *
 # おまじない
 sys.path.append('../')
 FILTER_NAME = "_subColor"
+FILTER_ALIAS = "減色"
 
 class FilterSubColor(Filter):
     
@@ -34,6 +35,10 @@ class FilterSubColor(Filter):
     # フィルター名を取得する。
     def getFilterName(self):
         return FILTER_NAME
+
+    # フィルターのエイリアスを取得する。
+    def getFilterAlias(self):
+        return FILTER_ALIAS
 
     # @alpha : モザイク一個の大きさ
     def subColor(self, img):
