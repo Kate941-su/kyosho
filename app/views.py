@@ -137,7 +137,6 @@ def about(request):
 # テストのフォーム関数ビュー
 def modelFormUpload(request):
     if request.method == 'POST':
-        # フォームを
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()

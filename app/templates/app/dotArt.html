@@ -5,7 +5,18 @@
 {% endblock %}
 
 {% block content %}
-{% include 'app/htmlComponents/formBase.html' %}
+<div class="jumbotron">
+    <h1>{{ filterAlias }}</h1>
+    <p>{{ explain }}</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="number" name="dotNum" min="0" max="100" step="1" value="1"> <input type="number" name="colorNum" min="0" max="100" step="1" value="1">
+        <input type="file" name = "avatar" value="写真を選択してください" onchange="OnFileSelect( this );" required/><!--multipleで複数ファイル-->
+        <button type="submit" name = "subColor" id = "btn_behind" style="display:none"></button>
+    </form>
+    {% include 'app/htmlComponents/pictureDisplay.html' %}
+    {% include 'app/htmlComponents/controlButtons.html' %}
+</div>
 {% endblock %}
 
 {% block scripts %}

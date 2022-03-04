@@ -2,21 +2,26 @@
     <h1>{{ filterAlias }}</h1>
     <p>{{ explain }}</p>
     <!--<p><a href="https://www.djangoproject.com/" class="btn btn-primary btn-large">写真を選ぶ&raquo;</a></p>-->   
+    
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
        <!--{{ form.as_p }}--> 
         <input type="file" name = "avatar" value="写真を選択してください" onchange="OnFileSelect( this );" required/><!--multipleで複数ファイル-->
         <button type="submit" name = "subColor" id = "btn_behind" style="display:none"></button>
     </form>
-    <div id="ID001" >
+    
+    <div id="pictureDisplay" >
         {% autoescape off %}
         {% load static %}
         <img src="{{ srcPath }}" id="srcImage" width="300" height="300" onerror="onErrorFilterImage( this )">
         <img src="{{ dstPath }}" id="dstImage" width="300" height="300" onerror="onErrorFilterImage( this )">        
         {% endautoescape %}
     </div>
-    {% include 'app/htmlComponents/returnButton.html' %}
-    {% include 'app/htmlComponents/downloadButton.html' %}
-    {% load static %}
-    <script src="{% static 'app/scripts/onErrorEvent.js' %}"></script>
+
+    <div id="contolButtons">
+        {% include 'app/htmlComponents/returnButton.html' %}
+        {% include 'app/htmlComponents/downloadButton.html' %}
+        {% load static %}
+        <script src="{% static 'app/scripts/onErrorEvent.js' %}"></script>
+    </div>
 </div>

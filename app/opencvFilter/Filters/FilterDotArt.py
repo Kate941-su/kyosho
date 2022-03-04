@@ -26,7 +26,9 @@ class FilterDotArt(Filter):
     # コンストラクタ
     def __init__(self, imgPath):
         super().__init__(imgPath)
+        # モザイクの強度
         self.mozike = 0.05
+        # 色の数
         self.colorNum = 8
 
     # フィルター名を取得する。
