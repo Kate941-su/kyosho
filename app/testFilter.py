@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Feb 19 09:45:21 2022
+Created on Fri Mar  4 20:22:13 2022
 
 @author: valle
 """
@@ -11,24 +11,15 @@ import numpy as np
 from PIL import Image
 
 # 自作モジュール
-from Filters.FilterDotArt import FilterDotArt
-from Filters.FilterMosaic import FilterMosaic
-from Filters.FilterSubColor import FilterSubColor
-from Filters.FilterThreshold import FilterThreshold
-from Utils.ResourceIOFunction import *
+from randomUtil import getRandomString, getHashFromIpAddress
+from opencvFilter.Filters.FilterDotArt import FilterDotArt
+from opencvFilter.Filters.FilterMosaic import FilterMosaic
+from opencvFilter.Filters.FilterSubColor import FilterSubColor
+from opencvFilter.Filters.FilterThreshold import FilterThreshold
+from opencvFilter.Utils.ResourceIOFunction import *
 
 
-path = "./Images/Lenna_threshold.jpg"
-
-img = cv2.imread(path, cv2.IMREAD_UNCHANGED)# 入力画像を取得(α値も取得版)
-if (img.ndim != 3):
-    dummy = np.zeros((len(img), len(img[0]), 4))
-    for i in range(3):
-        dummy[:, :, i] = img
-    nonAlpha = np.full((len(img), len(img[0])), 255)
-    dummy[:, :, 3] = nonAlpha
-    img = dummy
-
+path = "./testImages/flower.jpg"
 testName = "dotArt"
 
 # ドット絵風
@@ -39,8 +30,8 @@ if testName == "dotArt":
     name = filterDP.getFilterName()
     filterDP.setMozikeValue(mozike)
     filterDP.setColorNum(colorNum)
-    filterDP.makeDotArtForMember()
-    dst = filterDP.dotArt(img)# ドット絵化
+    filterDP.makePictureForMember()
+#    dst = filterDP.dotArt(img)# ドット絵化
     dstName = filterDP.getFileName()
     cv2.imwrite(filterDP.getFileName(), filterDP.getImage())# 結果を出力
 #    dst = makeFabicon(dst, 32, path = filterDP.getFileName())

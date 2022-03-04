@@ -46,7 +46,8 @@ class Filter(metaclass = ABCMeta):
     def __init__(self, imgPath):
         self.path = imgPath
         self.img = self.setImage(imgPath)
-
+        if (type(self.img) != type(None) and self.img.ndim != 3):
+            self.img = convertFrom2DImageTo3DImage(self.img)
     # イメージを読み取る
     def setImage(self, path):
         return cv2.imread(path, cv2.IMREAD_UNCHANGED)# 入力画像を取得(α値も取得版)

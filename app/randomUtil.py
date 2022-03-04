@@ -22,5 +22,3 @@ def getHashFromIpAddress(ipAddress):
     # ipv6用ピリオドを除く
     ipNopil = ipNopil.replace(":", "")
     return hashlib.md5(ipNopil.encode()).hexdigest()
-    
-print(getHashFromIpAddress("126.0.0.1"))
