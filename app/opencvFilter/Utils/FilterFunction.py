@@ -27,4 +27,12 @@ def mosaic(img, alpha):
     img = cv2.resize(img,(w, h), interpolation=cv2.INTER_NEAREST)
     return img
 
+# 　グレースケールの画像を3チャンネル化して返す
+def convertFrom2DImageTo3DImage(img):
+    img3D = np.zeros((len(img), len(img[0]), 4))
+    for i in range(3):
+        img3D[:, :, i] = img
+    nonAlpha = np.full((len(img), len(img[0])), 255)
+    img3D[:, :, 3] = nonAlpha
+    return img3D
 
