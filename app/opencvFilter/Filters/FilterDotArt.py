@@ -44,7 +44,6 @@ class FilterDotArt(Filter):
         self.img = self.dotArt(self.img)
 
     # ドット絵化
-    # @alpha : モザイク一個の大きさ
     def dotArt(self, img):
         img[:, :, :3] = mosaic(img[:, :, :3], self.mozike)    # モザイク処理
         img[:, :, :3] = sub_color(img[:, :, :3], self.colorNum)
