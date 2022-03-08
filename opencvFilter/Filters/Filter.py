@@ -24,7 +24,7 @@ class Filter(metaclass = ABCMeta):
     # 抽象メソッド ： メンバ用の絵を作成する
     @abstractmethod
     def makeDotArtForMember(self):
-        print("you have to imlement concreate method!")
+        print("you have to implement concreate method!")
 
     # 保存ファイル名を取得する
     @abstractmethod

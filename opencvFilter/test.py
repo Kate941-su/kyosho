@@ -19,10 +19,10 @@ from Utils.ResourceIOFunction import *
 
 
 
-path = "./Images/flower.jpg"
+path = "./Images/320.jpg"
 img = cv2.imread(path, cv2.IMREAD_UNCHANGED)# 入力画像を取得(α値も取得版)
 
-testName = "threshold"
+testName = "gauss"
 
 # ドット絵風
 if testName == "dotArt":
@@ -38,6 +38,16 @@ if testName == "dotArt":
     cv2.imwrite(filterDP.getFileName(), filterDP.getImage())# 結果を出力
 #    dst = makeFabicon(dst, 32, path = filterDP.getFileName())
 
+# ガウスぼかし
+if testName == "gauss":
+    filterGauss = FilterGauss(path)
+    name = filterGauss.getFilterName()
+    gauss = 10
+    filterGauss.setGaussValue(gauss)
+    dst = filterGauss.executeGauss(img)
+    dstName = filterGauss.getFileName()
+    cv2.imwrite(filterGauss.getFileName(), img)# 結果を出力
+    
 # モザイク
 if testName == "mosaic":
     filterMosaic = FilterMosaic(path)
