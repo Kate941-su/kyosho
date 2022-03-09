@@ -67,26 +67,28 @@ def viewFilter(request):
     useFilter = None
     retHtml = ""
     # リクエストに応じて適切なフィルターを適用する
-    if (requestName == "/subColor/"): # 減色のとき
+    # もう少し短いコードにできないか検討(FilterManagement経由で短くまとめる)
+    # 記述順序はFilterの番号順
+    if (requestName == "/dotArt/"): # 1. ドット絵風のとき
+        useFilter = FilterDotArt(dstPath)
+        if (type(filedata) != type(None)): # ファイルデータが届いていないとき 
+            useFilter.makePictureForMember()
+        retHtml = "app/dotArt.html"
+    elif (requestName == "/mosaic/"): # 2. モザイクのとき
+        useFilter = FilterMosaic(dstPath)
+        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+    elif (requestName == "/subColor/"): # 3. 減色のとき
         useFilter = FilterSubColor(dstPath)
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/subColor.html"
-    elif (requestName == "/mosaic/"): # モザイクのとき
-        useFilter = FilterMosaic(dstPath)
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
-            useFilter.makePictureForMember()
         retHtml = "app/mosaic.html"
-    elif (requestName == "/threshold/"): # 二値化のとき
+    elif (requestName == "/threshold/"): # 4. 二値化のとき
         useFilter = FilterThreshold(dstPath)
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/threshold.html"
-    elif (requestName == "/dotArt/"): # ドット絵風のとき
-        useFilter = FilterDotArt(dstPath)
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
-            useFilter.makePictureForMember()
-        retHtml = "app/dotArt.html"
     if (type(filedata) != type(None)): # ファイルデータが届いていないとき
         cv2.imwrite(dstPath, useFilter.getImage())
     filterAlias = useFilter.getFilterAlias()
