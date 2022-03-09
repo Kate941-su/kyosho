@@ -16,11 +16,13 @@ from opencvFilter.Filters.FilterDotArt import FilterDotArt
 from opencvFilter.Filters.FilterMosaic import FilterMosaic
 from opencvFilter.Filters.FilterSubColor import FilterSubColor
 from opencvFilter.Filters.FilterThreshold import FilterThreshold
+from opencvFilter.Filters.FilterGauss import FilterGauss
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
+
 path = "./testImages/flower.jpg"
-testName = "dotArt"
+testName = "gauss"
 
 # ドット絵風
 if testName == "dotArt":
@@ -31,10 +33,8 @@ if testName == "dotArt":
     filterDP.setMozikeValue(mozike)
     filterDP.setColorNum(colorNum)
     filterDP.makePictureForMember()
-#    dst = filterDP.dotArt(img)# ドット絵化
     dstName = filterDP.getFileName()
     cv2.imwrite(filterDP.getFileName(), filterDP.getImage())# 結果を出力
-#    dst = makeFabicon(dst, 32, path = filterDP.getFileName())
 
 # モザイク
 if testName == "mosaic":
@@ -62,6 +62,16 @@ if testName == "threshold":
     ret, th = filterThreshold.threshold(img)
     cv2.imwrite(filterThreshold.getFileName(), th)# 結果を出力
 
+#ガウスぼかし
+if testName == "gauss":
+    filterGauss = FilterGauss(path)
+    name = filterGauss.getFilterName()
+    deviation = 130
+    kernel = 177
+    filterGauss.setDeviation(deviation)
+    filterGauss.setKernel(kernel)
+    filterGauss.makePictureForMember()
+    cv2.imwrite(filterGauss.getFileName(), filterGauss.getImage())# 結果を出力
 #何もしない
 else:
     None

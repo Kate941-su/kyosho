@@ -41,10 +41,9 @@ class FilterMosaic(Filter):
         return FILTER_ALIAS
 
     # モザイク処理をする
-    # @alpha : モザイク一個の大きさ
     def executeMosaic(self, img):
         img[:, :, :3] = mosaic(img[:, :, :3], self.mosaic)    # モザイク処理
-        return img    # 減色処理
+        return img   
     
     # モザイク値を設定する(0から1)
     def setMosaicValue(self, mosaic):
