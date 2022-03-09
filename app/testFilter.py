@@ -38,7 +38,7 @@ if testName == "dotArt":
 # モザイク
 if testName == "mosaic":
     filterMosaic = FilterMosaic(path)
-    mosaic = 0.025
+    mosaic = 100
     filterMosaic.setMosaicValue(mosaic)
     filterMosaic.makePictureForMember()
     cv2.imwrite(filterMosaic.getFileName(), filterMosaic.getImage())# 結果を出力

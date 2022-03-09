@@ -71,6 +71,8 @@ def viewFilter(request):
     # 記述順序はFilterの番号順
     if (requestName == "/dotArt/"): # 1. ドット絵風のとき
         useFilter = FilterDotArt(dstPath)
+        useFilter.setMosaicValue(int(request.POST.get("dotNum")))
+        useFilter.setColorNum(int(request.POST.get("colorNum")))
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき 
             useFilter.makePictureForMember()
         retHtml = "app/dotArt.html"
@@ -89,6 +91,11 @@ def viewFilter(request):
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/threshold.html"
+    elif (requestName == "/gauss/"): # 5. ガウスぼかしのとき
+        useFilter = FilterGauss(dstPath)
+        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/gauss.html"
     if (type(filedata) != type(None)): # ファイルデータが届いていないとき
         cv2.imwrite(dstPath, useFilter.getImage())
     filterAlias = useFilter.getFilterAlias()
