@@ -16,6 +16,7 @@ from opencvFilter.Filters.FilterDotArt import FilterDotArt
 from opencvFilter.Filters.FilterMosaic import FilterMosaic
 from opencvFilter.Filters.FilterSubColor import FilterSubColor
 from opencvFilter.Filters.FilterThreshold import FilterThreshold
+from opencvFilter.Filters.FilterGauss import FilterGauss
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
@@ -56,6 +57,16 @@ if testName == "threshold":
     filterThreshold.makePictureForMember()
     cv2.imwrite(filterThreshold.getFileName(), filterThreshold.getImage())# 結果を出力
 
+#ガウスぼかし
+if testName == "gauss":
+    filterGauss = FilterGauss(path)
+    name = filterGauss.getFilterName()
+    deviation = 130
+    kernel = 177
+    filterGauss.setDeviation(deviation)
+    filterGauss.setKernel(kernel)
+    filterGauss.makePictureForMember()
+    cv2.imwrite(filterGauss.getFileName(), filterGauss.getImage())# 結果を出力
 #何もしない
 else:
     None
