@@ -2,3 +2,55 @@ li{
     list-style-type: none;
     padding: 0; /* 左にできる隙間を消す */
   }
+
+  /*画像の選択に関するスタイル*/
+#fileInputContainer {
+    /*
+    width: 400px;
+    margin: 40px auto;
+    padding: 28px;
+    line-height: 1.5;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: transparent;
+    box-shadow: 2px 2px 5px 0px rgba(200,200,200,1);
+    */
+    font-family: 'Times New Roman';
+}
+
+label {
+    padding: 10px 40px;
+    color: #ffffff;
+    background-color: #384878;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+/*aタグに関するスタイル*/
+a {
+    position: relative;
+    display: inline-block;
+    transition: .3s;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  a::after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: #31aae2;
+    transition: .3s;
+    transform: translateX(-50%);
+  }
+  
+  a:hover::after{
+    width: 100%;
+  }

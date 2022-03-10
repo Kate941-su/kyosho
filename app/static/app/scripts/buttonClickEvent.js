@@ -1,7 +1,12 @@
 // ボタンクリックイベントが正しく届いているかテストする 
 function testButtonClickEvent(){
-//    alert('javaScriptは正常に機能しています');
+    alert('javaScriptは正常に機能しています');
 }
+
+//let button_recreate = document.getElementById('recreateButton');
+//button_recreate.addEventListener('click', testButtonClickEvent);
+
+
 
 function OnFileSelect( inputElement )
 {

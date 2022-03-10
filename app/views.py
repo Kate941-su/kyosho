@@ -71,9 +71,9 @@ def viewFilter(request):
     # 記述順序はFilterの番号順
     if (requestName == "/dotArt/"): # 1. ドット絵風のとき
         useFilter = FilterDotArt(dstPath)
-        useFilter.setMosaicValue(int(request.POST.get("dotNum")))
-        useFilter.setColorNum(int(request.POST.get("colorNum")))
         if (type(filedata) != type(None)): # ファイルデータが届いていないとき 
+            useFilter.setMosaicValue(int(request.POST.get("dotNum")))
+            useFilter.setColorNum(int(request.POST.get("colorNum")))
             useFilter.makePictureForMember()
         retHtml = "app/dotArt.html"
     elif (requestName == "/mosaic/"): # 2. モザイクのとき
