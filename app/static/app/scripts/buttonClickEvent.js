@@ -3,11 +3,6 @@ function testButtonClickEvent(){
     alert('javaScriptは正常に機能しています');
 }
 
-//let button_recreate = document.getElementById('recreateButton');
-//button_recreate.addEventListener('click', testButtonClickEvent);
-
-
-
 function OnFileSelect( inputElement )
 {
     // ファイルリストを取得
@@ -37,8 +32,15 @@ function OnFileSelect( inputElement )
         // ファイルの読み込み(Data URI Schemeの取得)
         fileReader.readAsDataURL( file );
     }
-    document.getElementById("btn_behind").click();
+    document.getElementById("btn_create").click();
 }
+
+function onClickRecreate() {
+    document.getElementById("btn_recreate").click();
+}
+
+
+
 
 /*
 let button_threshold = document.getElementById('btn_threshold');
@@ -50,4 +52,3 @@ button_mosaic.addEventListener('click', testButtonClickEvent);
 button_subColor.addEventListener('click', testButtonClickEvent);
 button_dotArt.addEventListener('click', testButtonClickEvent);
 */
-

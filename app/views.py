@@ -34,12 +34,11 @@ def home(request):
 # 各フィルター画面のview
 def viewFilter(request):
     assert isinstance(request, HttpRequest)
-    post = request.POST
     # クライアントのipアドレスを取得
     client_addr, _ = get_client_ip(request)
     # ipアドレスからハッシュ値を取得
     ipHash = getHashFromIpAddress(client_addr)
-    # 出力先ファイルのルートディレクトリ
+    # 出力先ファイルのルートディレクトリ(ディレクトリがなかったら作成)
     mediaDir = "./media/"
     if (not os.path.exists(mediaDir + ipHash)):
         os.makedirs(mediaDir + ipHash)
@@ -52,8 +51,14 @@ def viewFilter(request):
         form = DocumentForm()
     # サブミットされたファイルデータ
     filedata = request.FILES.get("avatar")
-    # 原画パス(ここら辺の挙動は後ほど詰める)
+    # 原画パス
     srcPath = mediaDir + ipHash + "/thumbnail-" + getRandomString(RANDOM_WORD_COUNT) + "-base.png"
+    if ("create" in request.POST): # 画像作成のとき
+        srcPath = mediaDir + ipHash + "/thumbnail-" + getRandomString(RANDOM_WORD_COUNT) + "-base.png"
+    elif ("recreate" in request.POST): # 再加工のとき  
+        # 相対パスに変換する必要あり   
+        srcPath = "." + request.POST.get("recreate-srcPath")
+        filedata = cv2.imread(srcPath, cv2.IMREAD_UNCHANGED)
     # 出力先パス
     dstPath = mediaDir + ipHash + "/temporary-" + getRandomString(RANDOM_WORD_COUNT) + ".png"
     #元画像を取得(ファイルフォーマットは選べるようにする)

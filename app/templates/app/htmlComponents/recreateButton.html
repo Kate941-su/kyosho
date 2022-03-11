@@ -1,10 +1,4 @@
-<div id="fileInputContainer">
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="text" value="test">
-        <label>
-            原画を再加工
-            <button type="submit" name = "subColor" id = "btn_recreate"></button>
-        </label>
-    </form>
-</div>
+<label>
+    原画を再加工
+    <button type="submit" name="recreate" style="display:none"  onclick="onClickRecreate();"></button>
+</label>
