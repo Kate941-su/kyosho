@@ -58,16 +58,22 @@ def viewFilter(request):
     elif ("recreate" in request.POST): # 再加工のとき  
         # 相対パスに変換する必要あり   
         srcPath = "." + request.POST.get("recreate-srcPath")
-        filedata = cv2.imread(srcPath, cv2.IMREAD_UNCHANGED)
     # 出力先パス
     dstPath = mediaDir + ipHash + "/temporary-" + getRandomString(RANDOM_WORD_COUNT) + ".png"
-    #元画像を取得(ファイルフォーマットは選べるようにする)
-    if (type(filedata) != type(None)):
-        if (len(filedata) !=0):
-            with open(dstPath, "wb+") as f:
-                for chunk in filedata:
-                    f.write(chunk)
-            shutil.copy(dstPath, srcPath)
+    # 元画像を取得(ファイルフォーマットは選べるようにする)
+    # ファイルの有無をPOSTで判断
+    hasFileData = type(filedata) != type(None)
+    if ("create" in request.POST):
+        if (hasFileData):
+            if (len(filedata) !=0):
+                with open(dstPath, "wb+") as f:
+                    for chunk in filedata:
+                        f.write(chunk)
+                # dstを先に開いておいてsrcにコピーしている＝＝この行では同じ二枚のファイルを作成している
+                shutil.copy(dstPath, srcPath)
+    elif ("recreate" in request.POST):
+        shutil.copy(srcPath, dstPath)
+    hasFileData = os.path.exists(srcPath)
     requestName = request.path
     useFilter = None
     retHtml = ""
@@ -76,32 +82,32 @@ def viewFilter(request):
     # 記述順序はFilterの番号順
     if (requestName == "/dotArt/"): # 1. ドット絵風のとき
         useFilter = FilterDotArt(dstPath)
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき 
+        if (hasFileData): # ファイルデータが届いていないとき 
             useFilter.setMosaicValue(int(request.POST.get("dotNum")))
             useFilter.setColorNum(int(request.POST.get("colorNum")))
             useFilter.makePictureForMember()
         retHtml = "app/dotArt.html"
     elif (requestName == "/mosaic/"): # 2. モザイクのとき
         useFilter = FilterMosaic(dstPath)
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
+        if (hasFileData): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
+        retHtml = "app/mosaic.html"
     elif (requestName == "/subColor/"): # 3. 減色のとき
         useFilter = FilterSubColor(dstPath)
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
+        if (hasFileData): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/subColor.html"
-        retHtml = "app/mosaic.html"
     elif (requestName == "/threshold/"): # 4. 二値化のとき
         useFilter = FilterThreshold(dstPath)
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
+        if (hasFileData): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/threshold.html"
     elif (requestName == "/gauss/"): # 5. ガウスぼかしのとき
         useFilter = FilterGauss(dstPath)
-        if (type(filedata) != type(None)): # ファイルデータが届いていないとき  
+        if (hasFileData): # ファイルデータが届いていないとき  
             useFilter.makePictureForMember()
         retHtml = "app/gauss.html"
-    if (type(filedata) != type(None)): # ファイルデータが届いていないとき
+    if (hasFileData): # ファイルデータが届いていないとき
         cv2.imwrite(dstPath, useFilter.getImage())
     filterAlias = useFilter.getFilterAlias()
     fm = FilterManagement(useFilter.getFilterName())
