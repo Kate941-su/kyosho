@@ -42,8 +42,12 @@ class FilterThreshold(Filter):
     # 二値化する
     # @ret : 二値化の閾値
     def threshold(self, img):
-        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)# グレースケール変換
-        ret, th = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU)# 大津の二値化        
+        try: # 二値化されたものが選択されたときはえらーをにぎりつぶしてそのまま画像を表示する。
+            gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)# グレースケール変換
+            ret, th = cv2.threshold(gray, 0, 255, cv2.THRESH_OTSU)# 大津の二値化
+        except:
+            ret = -1
+            th = img               
         return ret, th
 
     # 保存ファイル名を取得する
