@@ -14,10 +14,10 @@
         {% include 'app/htmlComponents/pictureDisplay.html' %}
         <!--S パラメータコンポーネント-->
         <p>
-            <input type="number" name="dotNum" min="1" max="100" step="1" value="70">:モザイク度合い(%)
+            <input type="number" name="dotNum" min="1" max="100" step="1" value={{ dotNum }}>:モザイク度合い(%)
         </p>
         <p>
-            <input type="number" name="colorNum" min="1" max="20" step="1" value="8">:色数
+            <input type="number" name="colorNum" min="1" max="20" step="1" value={{ colorNum }}>:色数
         </p>
         <!--E パラメータコンポーネント-->
         {% include 'app/htmlComponents/recreateButton.html' %}

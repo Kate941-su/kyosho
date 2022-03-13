@@ -72,20 +72,34 @@ def viewFilter(request):
                 # dstを先に開いておいてsrcにコピーしている＝＝この行では同じ二枚のファイルを作成している
                 shutil.copy(dstPath, srcPath)
     elif ("recreate" in request.POST):
-        shutil.copy(srcPath, dstPath)
-    hasFileData = os.path.exists(srcPath)
+        # 再加工の場合は元画像が存在するかでhasFileDataを判断
+        hasFileData = os.path.exists(srcPath)
+        if (hasFileData):
+            shutil.copy(srcPath, dstPath)
     requestName = request.path
     useFilter = None
     retHtml = ""
+    addDict = {}
     # リクエストに応じて適切なフィルターを適用する
-    # もう少し短いコードにできないか検討(FilterManagement経由で短くまとめる)
     # 記述順序はFilterの番号順
+    # パラメータをブラウザで保持したいのでパラメータ設定するものはaddDictを設定する
     if (requestName == "/dotArt/"): # 1. ドット絵風のとき
         useFilter = FilterDotArt(dstPath)
-        if (hasFileData): # ファイルデータが届いていないとき 
-            useFilter.setMosaicValue(int(request.POST.get("dotNum")))
-            useFilter.setColorNum(int(request.POST.get("colorNum")))
+        if (hasFileData): # 元画像が存在するとき 
+            dotNum = int(request.POST.get("dotNum"))
+            colorNum = int(request.POST.get("colorNum"))
+            useFilter.setMosaicValue(dotNum)
+            useFilter.setColorNum(colorNum)
             useFilter.makePictureForMember()
+        else :
+            # home画面からフィルターを起動するときはまだパラメータが設定されていない
+            # 従って元画像が存在しないときは、ここで初期値を設定する必要がある。
+            dotNum = 70
+            colorNum = 8
+        addDict = {
+            "dotNum" : dotNum,
+            "colorNum" : colorNum
+        }
         retHtml = "app/dotArt.html"
     elif (requestName == "/mosaic/"): # 2. モザイクのとき
         useFilter = FilterMosaic(dstPath)
@@ -112,10 +126,7 @@ def viewFilter(request):
     filterAlias = useFilter.getFilterAlias()
     fm = FilterManagement(useFilter.getFilterName())
     explain = fm.getExplain()
-    return render(
-        request,
-        retHtml, # は変数名とテンプレート名をそろえること
-        {
+    retBaseDict = {
             'title': "画像加工アプリ～巨匠～",
             'year': datetime.now().year,
             'form' : form,
@@ -124,6 +135,11 @@ def viewFilter(request):
             'filterAlias' : filterAlias,
             'explain' : explain,
         }
+    retBaseDict.update(addDict)
+    return render(
+        request,
+        retHtml, # は変数名とテンプレート名をそろえること
+        retBaseDict
     )
 
 # contactについてのview
