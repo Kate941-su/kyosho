@@ -2,6 +2,6 @@
     {% autoescape off %}
     {% load static %}
     <img src="{{ srcPath }}" id="srcImage" width="300" height="300" onerror="onErrorFilterImage( this )">
-    <img src="{{ dstPath }}" id="dstImage" width="300" height="300" onerror="onErrorFilterImage( this )">        
+    <img src="{{ dstPath }}" id="dstImage" width="300" height="300" onerror="onErrorFilterImage( this )" onload="onChangeDstImage()">        
     {% endautoescape %}
 </div>

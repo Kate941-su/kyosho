@@ -2,9 +2,11 @@
 {% block myCss %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'app/css/mycss.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'app/css/waitIndicator.css' %}" />
 {% endblock %}
 
 {% block content %}
+{% include 'app/htmlComponents/waitIndicator.html' %}
 <div class="jumbotron">
     <h1>{{ filterAlias }}</h1>
     <p>{{ explain }}</p>

@@ -33,14 +33,26 @@ function OnFileSelect( inputElement )
         fileReader.readAsDataURL( file );
     }
     document.getElementById("btn_create").click();
+    createWaitIndicator();
 }
 
+// 再加工時時の処理を行う
 function onClickRecreate() {
     document.getElementById("btn_recreate").click();
+    createWaitIndicator();
 }
 
-
-
+// ウェイトインジケータを作成する
+function createWaitIndicator() {
+    // ウェイトインジケーター親要素取得
+    let waitIndicator = document.getElementById("waitIndicator");
+    // ウェイトインジケーター子要素取得
+    let childElement = document.createElement("div");
+    // 属性設定
+    childElement.setAttribute("class", "loader");
+    // 親要素に追加
+    waitIndicator.insertBefore(childElement, waitIndicator.firstChild);
+}
 
 /*
 let button_threshold = document.getElementById('btn_threshold');
