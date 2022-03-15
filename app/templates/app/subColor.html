@@ -14,7 +14,7 @@
         {% include 'app/htmlComponents/pictureDisplay.html' %}
         <!--S パラメータコンポーネント-->
         <p>
-            パラメータテスト
+            <input type="number" name="colorNum" min="1" max="100" step="1" value={{ colorNum }} required>:色数
         </p>
         <!--E パラメータコンポーネント-->
         {% include 'app/htmlComponents/recreateButton.html' %}

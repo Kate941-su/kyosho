@@ -15,6 +15,7 @@ from .opencvFilter.Filters.FilterDotArt import FilterDotArt
 from .opencvFilter.Filters.FilterMosaic import FilterMosaic
 from .opencvFilter.Filters.FilterSubColor import FilterSubColor
 from .opencvFilter.Filters.FilterThreshold import FilterThreshold
+from .opencvFilter.Filters.FilterGauss import FilterGauss
 
 RANDOM_WORD_COUNT = 10
 
@@ -104,12 +105,26 @@ def viewFilter(request):
     elif (requestName == "/mosaic/"): # 2. モザイクのとき
         useFilter = FilterMosaic(dstPath)
         if (hasFileData): # ファイルデータが届いていないとき  
+            mosaic = int(request.POST.get("モザイク"))
+            useFilter.setMosaicValue(mosaic)
             useFilter.makePictureForMember()
+        else:
+            mosaic = 25
+        addDict = {
+            "mosaic" : mosaic
+        }
         retHtml = "app/mosaic.html"
     elif (requestName == "/subColor/"): # 3. 減色のとき
         useFilter = FilterSubColor(dstPath)
         if (hasFileData): # ファイルデータが届いていないとき  
+            colorNum = int(request.POST.get("colorNum"))
+            useFilter.setColorNum(colorNum)
             useFilter.makePictureForMember()
+        else:
+            colorNum = 8
+        addDict = {
+            "colorNum" : colorNum
+        }        
         retHtml = "app/subColor.html"
     elif (requestName == "/threshold/"): # 4. 二値化のとき
         useFilter = FilterThreshold(dstPath)
@@ -119,7 +134,18 @@ def viewFilter(request):
     elif (requestName == "/gauss/"): # 5. ガウスぼかしのとき
         useFilter = FilterGauss(dstPath)
         if (hasFileData): # ファイルデータが届いていないとき  
+            deviation = int(request.POST.get("deviation"))
+            kernel = int(request.POST.get("kernel"))
+            useFilter.setDeviation(deviation)
+            useFilter.setKernel(kernel)
             useFilter.makePictureForMember()
+        else:
+            deviation = 31
+            kernel = 31
+        addDict = {
+            "deviation" : deviation,
+            "kernel" : kernel,
+        }
         retHtml = "app/gauss.html"
     if (hasFileData): # ファイルデータが届いていないとき
         cv2.imwrite(dstPath, useFilter.getImage())

@@ -14,7 +14,10 @@
         {% include 'app/htmlComponents/pictureDisplay.html' %}
         <!--S パラメータコンポーネント-->
         <p>
-            <input type="number" name="mosaic" min="1" max="100" step="1" value={{ mosaic }} required>:モザイク度合い(%)
+            <input type="number" name="deviation" min="1" max="101" step="1" value={{ deviation }} required>:偏差（ユーザーに分かりずらい）
+        </p>
+        <p>
+            <input type="number" name="kernel" min="1" max="101" step="2" value={{ kernel }} required>:カーネル数（ユーザーに分かりずらい）
         </p>
         <!--E パラメータコンポーネント-->
         {% include 'app/htmlComponents/recreateButton.html' %}
