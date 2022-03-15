@@ -1,6 +1,6 @@
 // ボタンクリックイベントが正しく届いているかテストする 
 function testButtonClickEvent(){
-//    alert('javaScriptは正常に機能しています');
+    alert('javaScriptは正常に機能しています');
 }
 
 function OnFileSelect( inputElement )
@@ -32,7 +32,30 @@ function OnFileSelect( inputElement )
         // ファイルの読み込み(Data URI Schemeの取得)
         fileReader.readAsDataURL( file );
     }
-    document.getElementById("btn_behind").click();
+    document.getElementById("btn_create").click();
+    createWaitIndicator();
+}
+
+// 再加工時時の処理を行う
+function onClickRecreate() {
+    document.getElementById("btn_recreate").click();
+    createWaitIndicator();
+}
+
+// ウェイトインジケータを作成する
+// 1. ウエイトインジケーターを見せるためのクラスを作成
+// 2. モーダルウィンドウにして画面を覆う
+function createWaitIndicator() {
+    // ウェイトインジケーター親要素取得
+    let waitIndicator = document.getElementById("waitIndicator");
+    // ウェイトインジケーター子要素取得
+    let childElement = document.createElement("div");
+    // 属性設定
+    childElement.setAttribute("class", "loader");
+    childElement.setAttribute("class", "modalWindow");
+    // 親要素に追加
+    waitIndicator.innerHTML = "<h3>お待ちください。</h3>";
+    waitIndicator.insertBefore(childElement, waitIndicator.firstChild);
 }
 
 /*
@@ -45,4 +68,3 @@ button_mosaic.addEventListener('click', testButtonClickEvent);
 button_subColor.addEventListener('click', testButtonClickEvent);
 button_dotArt.addEventListener('click', testButtonClickEvent);
 */
-

@@ -20,9 +20,8 @@ from opencvFilter.Filters.FilterGauss import FilterGauss
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
-
-path = "./testImages/flower.jpg"
-testName = "gauss"
+path = "./testImages/sample_woman.png"
+testName = "mosaic"
 
 # ドット絵風
 if testName == "dotArt":
@@ -39,28 +38,24 @@ if testName == "dotArt":
 # モザイク
 if testName == "mosaic":
     filterMosaic = FilterMosaic(path)
-    name = filterMosaic.getFilterName()
-    mosaic = 0.05
+    mosaic = 100
     filterMosaic.setMosaicValue(mosaic)
-    dst = filterMosaic.executeMosaic(img)
-    dstName = filterMosaic.getFileName()
-    cv2.imwrite(filterMosaic.getFileName(), img)# 結果を出力
+    filterMosaic.makePictureForMember()
+    cv2.imwrite(filterMosaic.getFileName(), filterMosaic.getImage())# 結果を出力
 
 # 減色
 if testName == "subColor":
     filterSubColor = FilterSubColor(path)
     colorNum = 9
     filterSubColor.setColorNum(colorNum)
-    dst = filterSubColor.subColor(img)
-    dstName = filterSubColor.getFileName()
-    cv2.imwrite(filterSubColor.getFileName(), img)# 結果を出力
+    filterSubColor.makePictureForMember()
+    cv2.imwrite(filterSubColor.getFileName(), filterSubColor.getImage())# 結果を出力
 
 # 二値化
 if testName == "threshold":
     filterThreshold = FilterThreshold(path)
-    dst = filterThreshold.threshold(img)
-    ret, th = filterThreshold.threshold(img)
-    cv2.imwrite(filterThreshold.getFileName(), th)# 結果を出力
+    filterThreshold.makePictureForMember()
+    cv2.imwrite(filterThreshold.getFileName(), filterThreshold.getImage())# 結果を出力
 
 #ガウスぼかし
 if testName == "gauss":

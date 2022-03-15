@@ -27,7 +27,7 @@ class FilterDotArt(Filter):
     def __init__(self, imgPath):
         super().__init__(imgPath)
         # モザイクの強度
-        self.mozike = 0.05
+        self.mosaic = 0.05
         # 色の数
         self.colorNum = 8
 
@@ -45,13 +45,20 @@ class FilterDotArt(Filter):
 
     # ドット絵化
     def dotArt(self, img):
-        img[:, :, :3] = mosaic(img[:, :, :3], self.mozike)    # モザイク処理
+        img[:, :, :3] = mosaic(img[:, :, :3], self.mosaic)    # モザイク処理
         img[:, :, :3] = sub_color(img[:, :, :3], self.colorNum)
         return img    # 減色処理
     
     # モザイク値を設定する(0から1)
-    def setMozikeValue(self, mozike):
-        self.mozike = mozike
+    def setMosaicValue(self, mosaic):
+        self.mosaic = self.convertPercentToMosaicValue(mosaic) 
+
+    # モザイクをパーセントからmosaic値に変換する
+    # 100パーセントでmosaic=0.01、0パーセントでmosaic=1
+    # 線形でモザイク度合いを変化させる。
+    def convertPercentToMosaicValue(self, percent):
+        assert percent != 0
+        return 1 / percent 
 
     # 色数を設定する
     def setColorNum(self, colorNum):

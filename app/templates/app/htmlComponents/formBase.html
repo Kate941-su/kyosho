@@ -7,7 +7,7 @@
         {% csrf_token %}
        <!--{{ form.as_p }}--> 
         <input type="file" name = "avatar" value="写真を選択してください" onchange="OnFileSelect( this );" required/><!--multipleで複数ファイル-->
-        <button type="submit" name = "subColor" id = "btn_behind" style="display:none"></button>
+        <button type="submit" name = "create" id = "btn_create" style="display:none"></button>
     </form>
     
     <div id="pictureDisplay" >
