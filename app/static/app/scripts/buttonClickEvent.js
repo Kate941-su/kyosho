@@ -43,6 +43,8 @@ function onClickRecreate() {
 }
 
 // ウェイトインジケータを作成する
+// 1. ウエイトインジケーターを見せるためのクラスを作成
+// 2. モーダルウィンドウにして画面を覆う
 function createWaitIndicator() {
     // ウェイトインジケーター親要素取得
     let waitIndicator = document.getElementById("waitIndicator");
@@ -50,7 +52,9 @@ function createWaitIndicator() {
     let childElement = document.createElement("div");
     // 属性設定
     childElement.setAttribute("class", "loader");
+    childElement.setAttribute("class", "modalWindow");
     // 親要素に追加
+    waitIndicator.innerHTML = "<h3>お待ちください。</h3>";
     waitIndicator.insertBefore(childElement, waitIndicator.firstChild);
 }
 
