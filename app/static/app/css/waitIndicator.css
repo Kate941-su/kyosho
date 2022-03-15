@@ -1,3 +1,13 @@
+#pictureDisplay {
+    margin: 10px;
+    display: flex;
+}
+
+#waitIndicator {
+    margin: 0 auto;
+    z-index: 2;
+}
+
 .loader,
 .loader:before,
 .loader:after {
@@ -8,6 +18,8 @@
   height: 4em;
 }
 .loader {
+  display:flex;
+  justify-content:center;
   color: #00ffd5;
   text-indent: -9999em;
   margin: 88px auto;
