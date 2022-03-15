@@ -6,3 +6,4 @@ db.sqlite3
 *.pptx
 app/testImages/*
 opencvFilter/*
+.env
