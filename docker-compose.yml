@@ -3,19 +3,19 @@ version: "3"
 #設定する内容を記述していく宣言
 services:
     web:
-        container_name: djst_django
+        container_name: django
         build: .
         restart: always
+        #commandはDOCKERFILEのCMD複数行区切るときは;
         command: >
             bash -c "
-               apt update && apt-get upgrade -y &&
-                apt install -y libgl1-mesa-glx &&
-                pip install -r requirements.txt &&
+                apt-get update;
+                apt-get install -y libgl1-mesa-dev;
                 python manage.py runserver 0:8000
             "
         working_dir: /code
         ports: 
-            - 127.0.0.1:8000:8000
+            - 0.0.0.0:8000:8000
         volumes:
             - .:/code
 #        depends_on:
