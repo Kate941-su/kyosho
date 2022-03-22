@@ -14,6 +14,7 @@ class FilterManagement:
             "_subColor" : 3,
             "_threshold" : 4,
             "_edge" : 5,
+            "_gauss": 6,
         }
         self.__explain = self.explainFilter(self.filterDict[filterName])            
 
@@ -28,7 +29,9 @@ class FilterManagement:
         elif (filterNum == self.filterDict["_threshold"]): # 二値化の説明のとき
             return self.exFilterThreshold()
         elif (filterNum == self.filterDict["_edge"]): # エッジ検出の説明のとき
-            return self.exFilter()
+            return self.exFilterEdge()
+        elif (filterNum == self.filterDict["_gauss"]): # ガウスぼかしの説明のとき
+            return self.exFilterGauss()
 
     # モザイクの説明
     def exFilterMosaic(self):
@@ -49,6 +52,10 @@ class FilterManagement:
     # エッジ検出の説明
     def exFilterEdge(self):
         return "エッジ検出の説明"
+    
+    # ガウスぼかしの説明
+    def exFilterGauss(self):
+        return "ガウスぼかしの説明"
 
     # 説明を取得する
     def getExplain(self):
