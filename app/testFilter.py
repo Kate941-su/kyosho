@@ -20,16 +20,16 @@ from opencvFilter.Filters.FilterGauss import FilterGauss
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
-path = "./testImages/sample_woman.png"
-testName = "mosaic"
+path = "./testImages/flower.jpg"
+testName = "subColor"
 
 # ドット絵風
 if testName == "dotArt":
     filterDP = FilterDotArt(path)
-    mozike = 0.05
+    mozike = 25
     colorNum = 10
     name = filterDP.getFilterName()
-    filterDP.setMozikeValue(mozike)
+    filterDP.setMosaicValue(mozike)
     filterDP.setColorNum(colorNum)
     filterDP.makePictureForMember()
     dstName = filterDP.getFileName()

@@ -105,7 +105,7 @@ def viewFilter(request):
     elif (requestName == "/mosaic/"): # 2. モザイクのとき
         useFilter = FilterMosaic(dstPath)
         if (hasFileData): # ファイルデータが届いていないとき  
-            mosaic = int(request.POST.get("モザイク"))
+            mosaic = int(request.POST.get("mosaic"))
             useFilter.setMosaicValue(mosaic)
             useFilter.makePictureForMember()
         else:
