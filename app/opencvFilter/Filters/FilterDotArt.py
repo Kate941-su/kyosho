@@ -56,8 +56,7 @@ class FilterDotArt(Filter):
     # 色数を設定する
     def setColorNum(self, colorNum):
         self.colorNum = colorNum
-
-    
+  
     # 透過度を反映する
     def writeAlpha(self, imgAlpha):
         None
