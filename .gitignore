@@ -1,4 +1,3 @@
-kyoshoEnv
 DjangoWebProject1/__pycache__
 app/__pycache__
 *.bat
@@ -6,3 +5,6 @@ db.sqlite3
 *.pptx
 app/testImages/*
 opencvFilter/*
+.env
+local_settings.py
+new_design

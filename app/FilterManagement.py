@@ -61,3 +61,5 @@ class FilterManagement:
     def getExplain(self):
         return self.__explain
 
+    # レスポンスで返す各フィルターに対するパラメータを元の辞書に追加する
+#    def addRetBaseDict(self, filterNum, retDict, addDict):

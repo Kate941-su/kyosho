@@ -17,6 +17,7 @@ from opencvFilter.Filters.FilterMosaic import FilterMosaic
 from opencvFilter.Filters.FilterSubColor import FilterSubColor
 from opencvFilter.Filters.FilterThreshold import FilterThreshold
 from opencvFilter.Filters.FilterGauss import FilterGauss
+<<<<<<< HEAD
 from opencvFilter.Filters.FilterEdge import FilterEdge
 from opencvFilter.Utils.ResourceIOFunction import *
 
@@ -24,14 +25,23 @@ from opencvFilter.Utils.ResourceIOFunction import *
 
 path = "./testImages/town.jpg"
 testName = "edge"
+=======
+from opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
+from opencvFilter.Filters.FilterWBComic import FilterWBComic
+from opencvFilter.Utils.ResourceIOFunction import *
+
+
+path = "./testImages/flower.jpg"
+testName = "WBComic"
+>>>>>>> 10e88952f3238529f07eb627a593847bdd9a92aa
 
 # ドット絵風
 if testName == "dotArt":
     filterDP = FilterDotArt(path)
-    mozike = 0.05
+    mozike = 25
     colorNum = 10
     name = filterDP.getFilterName()
-    filterDP.setMozikeValue(mozike)
+    filterDP.setMosaicValue(mozike)
     filterDP.setColorNum(colorNum)
     filterDP.makePictureForMember()
     dstName = filterDP.getFileName()
@@ -40,28 +50,24 @@ if testName == "dotArt":
 # モザイク
 if testName == "mosaic":
     filterMosaic = FilterMosaic(path)
-    name = filterMosaic.getFilterName()
-    mosaic = 0.05
+    mosaic = 100
     filterMosaic.setMosaicValue(mosaic)
-    dst = filterMosaic.executeMosaic(img)
-    dstName = filterMosaic.getFileName()
-    cv2.imwrite(filterMosaic.getFileName(), img)# 結果を出力
+    filterMosaic.makePictureForMember()
+    cv2.imwrite(filterMosaic.getFileName(), filterMosaic.getImage())# 結果を出力
 
 # 減色
 if testName == "subColor":
     filterSubColor = FilterSubColor(path)
     colorNum = 9
     filterSubColor.setColorNum(colorNum)
-    dst = filterSubColor.subColor(img)
-    dstName = filterSubColor.getFileName()
-    cv2.imwrite(filterSubColor.getFileName(), img)# 結果を出力
+    filterSubColor.makePictureForMember()
+    cv2.imwrite(filterSubColor.getFileName(), filterSubColor.getImage())# 結果を出力
 
 # 二値化
 if testName == "threshold":
     filterThreshold = FilterThreshold(path)
-    dst = filterThreshold.threshold(img)
-    ret, th = filterThreshold.threshold(img)
-    cv2.imwrite(filterThreshold.getFileName(), th)# 結果を出力
+    filterThreshold.makePictureForMember()
+    cv2.imwrite(filterThreshold.getFileName(), filterThreshold.getImage())# 結果を出力
 
 #ガウスぼかし
 if testName == "gauss":
@@ -73,6 +79,7 @@ if testName == "gauss":
     filterGauss.setKernel(kernel)
     filterGauss.makePictureForMember()
     cv2.imwrite(filterGauss.getFileName(), filterGauss.getImage())# 結果を出力
+<<<<<<< HEAD
     
 #エッジ検出
 if testName == "edge":
@@ -84,6 +91,21 @@ if testName == "edge":
     filterEdge.setKernel(kernel)
     filterEdge.makePictureForMember()
     cv2.imwrite(filterEdge.getFileName(), filterEdge.getImage())# 結果を出力
+=======
+
+# メディアンフィルター
+if testName == "medianFilter":
+    filterMedianFilter = FilterMedianFilter(path)
+    filterMedianFilter.makePictureForMember()
+    cv2.imwrite(filterMedianFilter.getFileName(), filterMedianFilter.getImage())# 結果を出力
+
+# 漫画風(白黒)フィルター
+if testName == "WBComic":
+    filterWBComic = FilterWBComic(path)
+    filterWBComic.makePictureForMember()
+    cv2.imwrite(filterWBComic.getFileName(), filterWBComic.getImage())# 結果を出力
+
+>>>>>>> 10e88952f3238529f07eb627a593847bdd9a92aa
 #何もしない
 else:
     None

@@ -8,6 +8,8 @@
     <link rel="icon" href="{% static 'app/imgs/fabicon.ico' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/mycss.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/waitIndicator.css' %}" />
     {% block myCss%}{% endblock %}
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
@@ -21,14 +23,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/" class="navbar-brand">Application name</a>
+                <a href="/" class="navbar-brand">トップページに戻る</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url 'app:home' %}">Home</a></li>
-                    <li><a href="{% url 'app:about' %}">About</a></li>
-                    <li><a href="{% url 'app:contact' %}">Contact</a></li>
-                    <li><a href="{% url 'app:upload' %}">Upload</a></li>
+                    <li><a href="{% url 'app:about' %}">アプリについて</a></li>
+                    <li><a href="{% url 'app:contact' %}">お問い合わせ</a></li>
                 </ul>
                 {% include 'app/loginpartial.html' %}
             </div>
@@ -39,7 +39,7 @@
 {% block content %}{% endblock %}
         <hr/>
         <footer>
-            <p>&copy; {{ year }} - My Django Application</p>
+            <p>&copy; {{ year }} - kyosho</p>
         </footer>
     </div>
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>

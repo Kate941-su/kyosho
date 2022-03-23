@@ -29,10 +29,10 @@ def mosaic(img, alpha):
 
 # 　グレースケールの画像を3チャンネル化して返す
 def convertFrom2DImageTo3DImage(img):
-    img3D = np.zeros((len(img), len(img[0]), 4))
+    img3D = np.zeros((len(img), len(img[0]), 3))
     for i in range(3):
         img3D[:, :, i] = img
     nonAlpha = np.full((len(img), len(img[0])), 255)
-    img3D[:, :, 3] = nonAlpha
+#    img3D[:, :, 3] = nonAlpha
     return img3D
 

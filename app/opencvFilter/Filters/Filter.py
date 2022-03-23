@@ -19,7 +19,7 @@ from ..Utils.ResourceIOFunction import *
 sys.path.append('../')
 FILTER_NAME = "_"
 FILTER_ALIAS = "_"
-
+MATERIAL_PATH = "./material/"
 class Filter(metaclass = ABCMeta):
 
     # 抽象メソッド ： メンバ用の絵を作成する
@@ -55,3 +55,11 @@ class Filter(metaclass = ABCMeta):
     # イメージを取得する
     def getImage(self):
         return self.img
+    
+    # 素材のパスを取得する
+    def getMaterialPath(self):
+        return MATERIAL_PATH
+    
+    # 原画のパスを取得する
+    def getSrcPath(self):
+        return self.path

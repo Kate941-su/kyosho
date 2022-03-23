@@ -20,8 +20,8 @@ class FilterGauss(Filter):
     # コンストラクタ
     def __init__(self, imgPath):
         super().__init__(imgPath)
-        self.deviation = 3
-        self.kernel = 3
+        self.deviation = 51
+        self.kernel = 51
 
     # メンバ用の絵を作成する
     def makePictureForMember(self):

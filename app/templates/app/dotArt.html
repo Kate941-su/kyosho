@@ -1,7 +1,5 @@
 {% extends "app/layout.html" %}
 {% block myCss %}
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'app/css/mycss.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -10,13 +8,21 @@
     <p>{{ explain }}</p>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="number" name="dotNum" min="0" max="100" step="1" value="1"> <input type="number" name="colorNum" min="0" max="100" step="1" value="1">
-        <input type="file" name = "avatar" value="写真を選択してください" onchange="OnFileSelect( this );" required/><!--multipleで複数ファイル-->
-        <button type="submit" name = "subColor" id = "btn_behind" style="display:none"></button>
+        {% include 'app/htmlComponents/choiceButton.html' %}
+        {% include 'app/htmlComponents/pictureDisplay.html' %}
+        <!--S パラメータコンポーネント-->
+        <p>
+            <input type="number" name="dotNum" min="1" max="100" step="1" value={{ dotNum }} required>:モザイク度合い(%)
+        </p>
+        <p>
+            <input type="number" name="colorNum" min="1" max="20" step="1" value={{ colorNum }} required>:色数
+        </p>
+        <!--E パラメータコンポーネント-->
+        {% include 'app/htmlComponents/recreateButton.html' %}
+        {% include 'app/htmlComponents/hiddenContents.html' %}
     </form>
-    {% include 'app/htmlComponents/pictureDisplay.html' %}
-    {% include 'app/htmlComponents/controlButtons.html' %}
 </div>
+{% include 'app/htmlComponents/controlButtons.html' %}
 {% endblock %}
 
 {% block scripts %}

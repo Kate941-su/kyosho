@@ -1,0 +1,39 @@
+#バージョンの指定
+version: "3"
+#設定する内容を記述していく宣言
+services:
+    web:
+        container_name: django
+        build: .
+        restart: always
+        #commandはDOCKERFILEのCMD複数行区切るときは;
+        command: >
+            bash -c "
+                apt-get update;
+                apt-get install -y libgl1-mesa-dev;
+                python manage.py runserver 0:8000
+            "
+        working_dir: /code
+        ports: 
+            - 0.0.0.0:8000:8000
+        volumes:
+            - .:/code
+#        depends_on:
+#            - db
+
+#    db:
+#        container_name: djst_mysql
+#        image: mysql:5.7
+#        restart: always
+#        environment: 
+#            MYSQL_DATABASE: $DB_NAME
+#            MYSQL_USER: $DB_USER
+#            MYSQL_PASSWORD: $DB_PASSWORD
+#            MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+#            MYSQL_TCP_PORT: 3306
+#            TZ: 'Asia/Tokyo'
+#        volumes: 
+#            - ./mysql/data:/var/lib/mysql/
+#            - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+#        ports: 
+#            - 3306:3306

@@ -40,6 +40,13 @@ class FilterMosaic(Filter):
     def getFilterAlias(self):
         return FILTER_ALIAS
 
+    # モザイクをパーセントからmosaic値に変換する
+    # 100パーセントでmosaic=0.01、0パーセントでmosaic=1
+    # 線形でモザイク度合いを変化させる。
+    def convertPercentToMosaicValue(self, percent):
+        assert percent != 0
+        return 1 / percent 
+
     # モザイク処理をする
     def executeMosaic(self, img):
         img[:, :, :3] = mosaic(img[:, :, :3], self.mosaic)    # モザイク処理
@@ -47,7 +54,7 @@ class FilterMosaic(Filter):
     
     # モザイク値を設定する(0から1)
     def setMosaicValue(self, mosaic):
-        self.mosaic = mosaic
+        self.mosaic = self.convertPercentToMosaicValue(mosaic)
     
     # 保存ファイル名を取得する
     def getFileName(self):

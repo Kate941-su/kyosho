@@ -1,0 +1,33 @@
+{% extends "app/layout.html" %}
+{% block myCss %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'app/css/mycss.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1>{{ filterAlias }}</h1>
+    <p>{{ explain }}</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'app/htmlComponents/choiceButton.html' %}
+        {% include 'app/htmlComponents/pictureDisplay.html' %}
+        <!--S パラメータコンポーネント-->
+        <p>
+            <input type="number" name="deviation" min="1" max="101" step="1" value={{ deviation }} required>:偏差（ユーザーに分かりずらい）
+        </p>
+        <p>
+            <input type="number" name="kernel" min="1" max="101" step="2" value={{ kernel }} required>:カーネル数（ユーザーに分かりずらい）
+        </p>
+        <!--E パラメータコンポーネント-->
+        {% include 'app/htmlComponents/recreateButton.html' %}
+        {% include 'app/htmlComponents/hiddenContents.html' %}
+    </form>
+</div>
+{% include 'app/htmlComponents/controlButtons.html' %}
+{% endblock %}
+
+{% block scripts %}
+{% load static %}
+<script src="{% static 'app/scripts/buttonClickEvent.js' %}"></script>
+{% endblock %}
