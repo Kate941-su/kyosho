@@ -60,7 +60,8 @@ def viewFilter(request):
         # 相対パスに変換する必要あり   
         srcPath = "." + request.POST.get("recreate-srcPath")
     # 出力先パス
-    dstPath = mediaDir + ipHash + "/temporary-" + getRandomString(RANDOM_WORD_COUNT) + ".png"
+    dstFileName = "result-" + getRandomString(RANDOM_WORD_COUNT) + ".png"
+    dstPath = mediaDir + ipHash + "/" + dstFileName
     # 元画像を取得(ファイルフォーマットは選べるようにする)
     # ファイルの有無をPOSTで判断
     hasFileData = type(filedata) != type(None)
@@ -158,6 +159,7 @@ def viewFilter(request):
             'form' : form,
             'srcPath' : srcPath.lstrip("."),# ./mediaではだめ。/mediaにしないといけない
             'dstPath' : dstPath.lstrip("."),# ./mediaではだめ。/mediaにしないといけない
+            'dstFileName' : dstFileName,
             'filterAlias' : filterAlias,
             'explain' : explain,
         }

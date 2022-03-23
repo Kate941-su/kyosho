@@ -17,11 +17,13 @@ from opencvFilter.Filters.FilterMosaic import FilterMosaic
 from opencvFilter.Filters.FilterSubColor import FilterSubColor
 from opencvFilter.Filters.FilterThreshold import FilterThreshold
 from opencvFilter.Filters.FilterGauss import FilterGauss
+from opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
+from opencvFilter.Filters.FilterWBComic import FilterWBComic
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
 path = "./testImages/flower.jpg"
-testName = "subColor"
+testName = "WBComic"
 
 # ドット絵風
 if testName == "dotArt":
@@ -67,6 +69,19 @@ if testName == "gauss":
     filterGauss.setKernel(kernel)
     filterGauss.makePictureForMember()
     cv2.imwrite(filterGauss.getFileName(), filterGauss.getImage())# 結果を出力
+
+# メディアンフィルター
+if testName == "medianFilter":
+    filterMedianFilter = FilterMedianFilter(path)
+    filterMedianFilter.makePictureForMember()
+    cv2.imwrite(filterMedianFilter.getFileName(), filterMedianFilter.getImage())# 結果を出力
+
+# 漫画風(白黒)フィルター
+if testName == "WBComic":
+    filterWBComic = FilterWBComic(path)
+    filterWBComic.makePictureForMember()
+    cv2.imwrite(filterWBComic.getFileName(), filterWBComic.getImage())# 結果を出力
+
 #何もしない
 else:
     None

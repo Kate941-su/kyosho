@@ -89,7 +89,7 @@ body {
     position: absolute; /* overlayの絶対位置を左上を起点にし幅と高さを100%にする */
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vh;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.1);    
     backdrop-filter: blur(3px); /* 一番下のbody領域をぼやかす */
