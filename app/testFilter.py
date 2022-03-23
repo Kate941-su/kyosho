@@ -19,11 +19,12 @@ from opencvFilter.Filters.FilterThreshold import FilterThreshold
 from opencvFilter.Filters.FilterGauss import FilterGauss
 from opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
 from opencvFilter.Filters.FilterWBComic import FilterWBComic
+from opencvFilter.Filters.FilterPencil import FilterPencil
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
-path = "./testImages/flower.jpg"
-testName = "WBComic"
+path = "./testImages/sample_woman.png"
+testName = "pencil"
 
 # ドット絵風
 if testName == "dotArt":
@@ -81,6 +82,13 @@ if testName == "WBComic":
     filterWBComic = FilterWBComic(path)
     filterWBComic.makePictureForMember()
     cv2.imwrite(filterWBComic.getFileName(), filterWBComic.getImage())# 結果を出力
+    
+# 鉛筆風
+if testName == "pencil":
+    filterPencil = FilterPencil(path)
+    filterPencil.makePictureForMember()
+    cv2.imwrite(filterPencil.getFileName(), filterPencil.getImage())
+    
 
 #何もしない
 else:
