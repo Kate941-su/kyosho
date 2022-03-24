@@ -17,15 +17,7 @@ from opencvFilter.Filters.FilterMosaic import FilterMosaic
 from opencvFilter.Filters.FilterSubColor import FilterSubColor
 from opencvFilter.Filters.FilterThreshold import FilterThreshold
 from opencvFilter.Filters.FilterGauss import FilterGauss
-<<<<<<< HEAD
 from opencvFilter.Filters.FilterEdge import FilterEdge
-from opencvFilter.Utils.ResourceIOFunction import *
-
-
-
-path = "./testImages/town.jpg"
-testName = "edge"
-=======
 from opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
 from opencvFilter.Filters.FilterWBComic import FilterWBComic
 from opencvFilter.Utils.ResourceIOFunction import *
@@ -33,7 +25,6 @@ from opencvFilter.Utils.ResourceIOFunction import *
 
 path = "./testImages/flower.jpg"
 testName = "WBComic"
->>>>>>> 10e88952f3238529f07eb627a593847bdd9a92aa
 
 # ドット絵風
 if testName == "dotArt":
@@ -79,7 +70,6 @@ if testName == "gauss":
     filterGauss.setKernel(kernel)
     filterGauss.makePictureForMember()
     cv2.imwrite(filterGauss.getFileName(), filterGauss.getImage())# 結果を出力
-<<<<<<< HEAD
     
 #エッジ検出
 if testName == "edge":
@@ -91,8 +81,6 @@ if testName == "edge":
     filterEdge.setKernel(kernel)
     filterEdge.makePictureForMember()
     cv2.imwrite(filterEdge.getFileName(), filterEdge.getImage())# 結果を出力
-=======
-
 # メディアンフィルター
 if testName == "medianFilter":
     filterMedianFilter = FilterMedianFilter(path)
@@ -105,7 +93,6 @@ if testName == "WBComic":
     filterWBComic.makePictureForMember()
     cv2.imwrite(filterWBComic.getFileName(), filterWBComic.getImage())# 結果を出力
 
->>>>>>> 10e88952f3238529f07eb627a593847bdd9a92aa
 #何もしない
 else:
     None
