@@ -17,6 +17,7 @@ from opencvFilter.Filters.FilterMosaic import FilterMosaic
 from opencvFilter.Filters.FilterSubColor import FilterSubColor
 from opencvFilter.Filters.FilterThreshold import FilterThreshold
 from opencvFilter.Filters.FilterGauss import FilterGauss
+from opencvFilter.Filters.FilterEdge import FilterEdge
 from opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
 from opencvFilter.Filters.FilterWBComic import FilterWBComic
 from opencvFilter.Filters.FilterPencil import FilterPencil
@@ -71,7 +72,17 @@ if testName == "gauss":
     filterGauss.setKernel(kernel)
     filterGauss.makePictureForMember()
     cv2.imwrite(filterGauss.getFileName(), filterGauss.getImage())# 結果を出力
-
+    
+#エッジ検出
+if testName == "edge":
+    filterEdge = FilterEdge(path)
+    name = filterEdge.getFilterName()
+    deviation = 3
+    kernel = 3
+    filterEdge.setDeviation(deviation)
+    filterEdge.setKernel(kernel)
+    filterEdge.makePictureForMember()
+    cv2.imwrite(filterEdge.getFileName(), filterEdge.getImage())# 結果を出力
 # メディアンフィルター
 if testName == "medianFilter":
     filterMedianFilter = FilterMedianFilter(path)
