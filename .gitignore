@@ -6,8 +6,6 @@ db.sqlite3
 app/testImages/*
 opencvFilter/*
 .env
-local_settings.py
 new_design
-
 app/__pycache__
 app/opencvFilter/Filters/__pycache__
