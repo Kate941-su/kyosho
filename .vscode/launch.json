@@ -15,6 +15,13 @@
             ],
             "django": true,
             "stopOnEntry": false,
+        },
+        {
+            "name": "Python: testFilter",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app/testFilter.py",
+            "console": "integratedTerminal",
         }
     ]
 }

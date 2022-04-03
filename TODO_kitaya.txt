@@ -1,2 +1,6 @@
 22/3/3
 ・onerrorで画像がないとき、ダウンロードさせない
+22/4/23
+*kyoshoEnv/Lib/site-packages/torch/lib/dnnl.*
+*kyoshoEnv/Lib/site-packages/torch/lib/torch_cpu.dll
+の二つはバイナリが大きすぎてgitに挙げられないためトラッキングから外す

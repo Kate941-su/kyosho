@@ -8,13 +8,20 @@ class FilterManagement:
     def  __init__(self, filterName):
         # フィルターを追加したら以下の辞書に追加する
         self.filterDict = {
-            "_" : 0,
-            "_dotArt" : 1,
-            "_mosaic" : 2,
-            "_subColor" : 3,
-            "_threshold" : 4,
-            "_edge" : 5,
-            "_gauss": 6,
+            "_"                          : 0,  # なし
+            "_dotArt"                    : 1,  # ドット絵風
+            "_mosaic"                    : 2,  # モザイク
+            "_subColor"                  : 3,  # 減色
+            "_threshold"                 : 4,  # 二値化
+            "_edge"                      : 5,  # エッジ検出
+            "_gauss"                     : 6,  # ガウスぼかし
+            "_medianFilter"              : 7,  # メディアンフィルター
+            "_WBComic"                   : 8,  # 漫画風(白黒)
+            "_pencil"                    : 9,  # 鉛筆風
+            "_AIAnimeArt"                : 10, # AIアニメ風
+            "_creatingColoringBook"      : 11, # 塗り絵化
+            "_stylization"               : 12, # 水彩画風
+            "_grayScale"                 : 13, # グレースケール
         }
         self.__explain = self.explainFilter(self.filterDict[filterName])            
 
@@ -32,34 +39,76 @@ class FilterManagement:
             return self.exFilterEdge()
         elif (filterNum == self.filterDict["_gauss"]): # ガウスぼかしの説明のとき
             return self.exFilterGauss()
+        elif (filterNum == self.filterDict["_medianFilter"]): # メディアンフィルターの説明のとき
+            return self.exFilterMedianFilter()
+        elif (filterNum == self.filterDict["_WBComic"]): # 漫画風(白黒)の説明のとき
+            return self.exFilterMedianFilter()
+        elif (filterNum == self.filterDict["_pencil"]): # 鉛筆風の説明のとき
+            return self.exFilterPencil()
+        elif (filterNum == self.filterDict["_AIAnimeArt"]): # AIアニメ風の説明のとき
+            return self.exFilterAIAnimeArt()
+        elif (filterNum == self.filterDict["_creatingColoringBook"]): # 塗り絵化の説明のとき
+            return self.exFilterCreatingColoringBook()
+        elif (filterNum == self.filterDict["_stylization"]): # 水彩画風の説明のとき
+            return self.exFilterStylization()
+        elif (filterNum == self.filterDict["_grayScale"]): # グレースケールの説明のとき
+            return self.exFilterGrayScale()
+        else:
+            assert(False)
 
-    # モザイクの説明
+    # 1モザイクの説明
     def exFilterMosaic(self):
         return "モザイクの説明"
 
-    # 二値化の説明
+    # 2二値化の説明
     def exFilterThreshold(self):
         return "二値化の説明"
 
-    # 減色の説明
+    # 3減色の説明
     def exFilterSubColor(self):
         return "減色の説明"
 
-    # ドット絵風の説明
+    # 4ドット絵風の説明
     def exFilterDotArt(self):
         return "ドット絵風の説明"
     
-    # エッジ検出の説明
+    # 5エッジ検出の説明
     def exFilterEdge(self):
         return "エッジ検出の説明"
     
-    # ガウスぼかしの説明
+    # 6ガウスぼかしの説明
     def exFilterGauss(self):
         return "ガウスぼかしの説明"
+    
+    # 7メディアンフィルターの説明
+    def exFilterMedianFilter(self):
+        return "メディアンフィルターの説明"
+
+    # 8漫画風(白黒)の説明
+    def exFilterWBComic(self):
+        return "漫画風(白黒)の説明"
+
+    # 9鉛筆風の説明
+    def exFilterPencil(self):
+        return "鉛筆風の説明"
+
+    # 10AIアニメ風の説明
+    def exFilterAIAnimeArt(self):
+        return "アニメ風の説明"
+
+    # 11塗り絵化の説明
+    def exFilterCreatingColoringBook(self):
+        return "塗り絵化の説明"
+
+    # 12水彩画風の説明
+    def exFilterStylization(self):
+        return "水彩画風の説明"
+
+    # 13グレースケールの説明
+    def exFilterGrayScale(self):
+        return "グレースケールの説明"
 
     # 説明を取得する
     def getExplain(self):
         return self.__explain
 
-    # レスポンスで返す各フィルターに対するパラメータを元の辞書に追加する
-#    def addRetBaseDict(self, filterNum, retDict, addDict):

@@ -72,11 +72,12 @@ class FilterAIAnimeArt(Filter):
         torch.backends.cudnn.deterministic = True
         device = "cpu"
         net = Generator()
+        cwd = os.getcwd()
         checkPointList = [
-            "./weights/celeba_distill.pt",
-            "./weights/face_paint_512_v1.pt",
-            "./weights/face_paint_512_v2.pt",
-            "./weights/paprika.pt",
+            "./app/weights/celeba_distill.pt",
+            "./app/weights/face_paint_512_v1.pt",
+            "./app/weights/face_paint_512_v2.pt",
+            "./app/weights/paprika.pt",
         ]
         checkPoint = checkPointList[self.editMode]
         net.load_state_dict(torch.load(checkPoint, map_location="cpu"))
@@ -88,16 +89,6 @@ class FilterAIAnimeArt(Filter):
             out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
             out = to_pil_image(out)
         return np.array(out)
-
-    #PILイメージに変換する
-#    def loadImage(imagePath, x32 = False):
-#        img = Image.open(imagePath).convert("RGB")
-#        if x32:
-#            def to_32s(x):
-#                return 256 if x < 256 else x - x % 32
-#            w, h = img.size
-#            img = img.resize((to_32s(w), to_32s(h)))
-#        return img
 
     """
     # AIアニメ風変換コア処理

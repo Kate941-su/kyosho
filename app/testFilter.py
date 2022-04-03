@@ -8,7 +8,9 @@ Created on Fri Mar  4 20:22:13 2022
 # pythonモジュール
 import cv2
 import numpy as np
+import os
 from PIL import Image
+import sys
 
 # 自作モジュール
 from randomUtil import getRandomString, getHashFromIpAddress
@@ -22,13 +24,33 @@ from opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
 from opencvFilter.Filters.FilterWBComic import FilterWBComic
 from opencvFilter.Filters.FilterPencil import FilterPencil
 from opencvFilter.Filters.FilterAIAnimeArt import FilterAIAnimeArt
+from opencvFilter.Filters.FilterCreatingColoringBook import FilterCreatingColoringBook
+from opencvFilter.Filters.FilterStylization import FilterStylization
+from opencvFilter.Filters.FilterGrayScale import FilterGrayScale
 from opencvFilter.Utils.ResourceIOFunction import *
+# テストするフィルターの種類
+# ""                          : 0,  # なし
+# "dotArt"                    : 1,  # ドット絵風
+# "mosaic"                    : 2,  # モザイク
+# "subColor"                  : 3,  # 減色
+# "threshold"                 : 4,  # 二値化
+# "edge"                      : 5,  # エッジ検出
+# "gauss"                     : 6,  # ガウスぼかし
+# "medianFilter"              : 7,  # メディアンフィルター
+# "WBComic"                   : 8,  # 漫画風(白黒)
+# "pencil"                    : 9,  # 鉛筆風
+# "AIAnimeArt"                : 10, # AIアニメ風
+# "creatingColoringBook"      : 11, # 塗り絵化
+# "stylization"               : 12, # 水彩画風
+# "grayScale"                 : 13, # グレースケール
+picName = "flower.jpg"
+if "debugpy" in sys.modules:
+    path = "./app/testImages/" + picName
+else:
+    path = "./testImages/" + picName
+testName = "creatingColoringBook"
 
-
-path = "./testImages/kitaya.jpg"
-testName = "AIAnimeArt"
-
-# ドット絵風
+# 1ドット絵風
 if testName == "dotArt":
     filterDP = FilterDotArt(path)
     mozike = 25
@@ -40,30 +62,30 @@ if testName == "dotArt":
     dstName = filterDP.getFileName()
     cv2.imwrite(filterDP.getFileName(), filterDP.getImage())# 結果を出力
 
-# モザイク
-if testName == "mosaic":
+# 2モザイク
+elif testName == "mosaic":
     filterMosaic = FilterMosaic(path)
-    mosaic = 100
+    mosaic = 20
     filterMosaic.setMosaicValue(mosaic)
     filterMosaic.makePictureForMember()
     cv2.imwrite(filterMosaic.getFileName(), filterMosaic.getImage())# 結果を出力
 
-# 減色
-if testName == "subColor":
+# 3減色
+elif testName == "subColor":
     filterSubColor = FilterSubColor(path)
     colorNum = 9
     filterSubColor.setColorNum(colorNum)
     filterSubColor.makePictureForMember()
     cv2.imwrite(filterSubColor.getFileName(), filterSubColor.getImage())# 結果を出力
 
-# 二値化
-if testName == "threshold":
+# 4二値化
+elif testName == "threshold":
     filterThreshold = FilterThreshold(path)
     filterThreshold.makePictureForMember()
     cv2.imwrite(filterThreshold.getFileName(), filterThreshold.getImage())# 結果を出力
 
-#ガウスぼかし
-if testName == "gauss":
+# 5ガウスぼかし
+elif testName == "gauss":
     filterGauss = FilterGauss(path)
     name = filterGauss.getFilterName()
     deviation = 130
@@ -73,62 +95,70 @@ if testName == "gauss":
     filterGauss.makePictureForMember()
     cv2.imwrite(filterGauss.getFileName(), filterGauss.getImage())# 結果を出力
     
-#エッジ検出
-if testName == "edge":
+# 6エッジ検出
+elif testName == "edge":
     filterEdge = FilterEdge(path)
     name = filterEdge.getFilterName()
-    deviation = 3
-    kernel = 3
+    deviation = 1
+    kernel = 1
     filterEdge.setDeviation(deviation)
     filterEdge.setKernel(kernel)
     filterEdge.makePictureForMember()
     cv2.imwrite(filterEdge.getFileName(), filterEdge.getImage())# 結果を出力
-# メディアンフィルター
-if testName == "medianFilter":
+    
+# 7メディアンフィルター
+elif testName == "medianFilter":
     filterMedianFilter = FilterMedianFilter(path)
     filterMedianFilter.makePictureForMember()
     cv2.imwrite(filterMedianFilter.getFileName(), filterMedianFilter.getImage())# 結果を出力
 
-# 漫画風(白黒)フィルター
-if testName == "WBComic":
+# 8漫画風(白黒)フィルター
+elif testName == "WBComic":
     filterWBComic = FilterWBComic(path)
     filterWBComic.makePictureForMember()
     cv2.imwrite(filterWBComic.getFileName(), filterWBComic.getImage())# 結果を出力
     
-# 鉛筆風
-if testName == "pencil":
+# 9鉛筆風
+elif testName == "pencil":
     filterPencil = FilterPencil(path)
     filterPencil.makePictureForMember()
     cv2.imwrite(filterPencil.getFileName(), filterPencil.getImage())
 
-# AIアニメ風
-if testName == "AIAnimeArt":
+# 10AIアニメ風
+elif testName == "AIAnimeArt":
     filterAIAnimeArt = FilterAIAnimeArt(path)
-    filterAIAnimeArt.setEditMode(2)
+    # アニメ調1
+    # 顔加工v1
+    # 顔加工v2
+    # パプリカ
+    filterAIAnimeArt.setEditMode(3)
     filterAIAnimeArt.makePictureForMember()
     cv2.imwrite(filterAIAnimeArt.getFileName(), filterAIAnimeArt.getImage())
     
+# 11塗り絵化
+elif testName == "creatingColoringBook":
+    filterCreatingColoringBook = FilterCreatingColoringBook(path)
+    filterCreatingColoringBook.makePictureForMember()
+    cv2.imwrite(filterCreatingColoringBook.getFileName(), 
+                    filterCreatingColoringBook.getImage())
+
+# 12水彩画風
+elif testName == "stylization":
+    filterStylization = FilterStylization(path)
+    filterStylization.setSmoothness(100)
+    filterStylization.setBleeding(0.5)
+    filterStylization.makePictureForMember()
+    cv2.imwrite(filterStylization.getFileName(), filterStylization.getImage())
+
+# 13グレースケール
+elif testName == "grayScale":
+    filterGrayScale = FilterGrayScale(path)
+    filterGrayScale.makePictureForMember()
+    cv2.imwrite(filterGrayScale.getFileName(), filterGrayScale.getImage())
 
 #何もしない
 else:
-    None
-"""
-def outter(func):
-    def inner(num):
-        try:
-            return func(num)
-        except ZeroDivisionError:
-            print("error has occured!")
-            return
-    return inner
-
-def oldFunc(num):
-    return 5 / num
-
-newFunc = outter(oldFunc)
-
-print(newFunc(0))
-"""
+    assert(False)
 
 
     

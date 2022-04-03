@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Mar 23 13:15:34 2022
-
-@author: valle
-"""
-
-# -*- coding: utf-8 -*-
-"""
 Created on Tue Mar 22 17:45:06 2022
 
 @author: KaitoKitaya
@@ -30,8 +23,7 @@ class FilterPencil(Filter):
     # コンストラクタ
     def __init__(self, imgPath):
         super().__init__(imgPath)
-        #おすすめサイズ
-        self.blurSize = 3
+        
     # abstractmethod
     # メンバ用の絵を作成する
     def makePictureForMember(self):

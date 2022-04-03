@@ -9,19 +9,18 @@
     <div id="demoImage">
         <img src="{% static 'app/imgs/demoImage.png' %}">
     </div>
-<!--巨匠について-->
-<div id="aboutKyosho" >
-    <p><br>画像加工アプリ～巨匠～について</br></p>
-    <ul>
-        <li>web上で画像加工が簡単にできるアプリです!</li>
-        <li>数値を変えることによってあなた好みの画像へと変換することが可能です!</li>
-        <li>ダウンロードボタンによって原画の大きさのまま画像ファイルをダウンロードすることが可能です!</li>
-        <li>AIを用いた超解像技術も開発中!</li>
-        <li>スマホからも変換可能!</li>
-        <li>こんなフィルターが欲しいというご意見は”お問い合わせ”ページからお願いいたします!</li>
-    </ul>
-
-</div>
+    <!--巨匠について-->
+    <div id="aboutKyosho" >
+        <p><br>画像加工アプリ～巨匠～について</br></p>
+        <ul>
+            <li>web上で画像加工が簡単にできるアプリです!</li>
+            <li>数値を変えることによってあなた好みの画像へと変換することが可能です!</li>
+            <li>ダウンロードボタンによって原画の大きさのまま画像ファイルをダウンロードすることが可能です!</li>
+            <li>AIを用いた超解像技術も開発中!</li>
+            <li>スマホからも変換可能!</li>
+            <li>こんなフィルターが欲しいというご意見は”お問い合わせ”ページからお願いいたします!</li>
+        </ul>
+    </div>
     <h2>フィルター一覧</h2>
   <!-- 3カラム -->
     <section class="gridWrapper">
@@ -72,14 +71,86 @@
         </article>
         <article class="grid">
             <div class="box">
-                    <a href="{% url 'app:mosaic' %}">
-                        <img src="{% static 'app/imgs/upcoming.png' %}" width="290" height="290" alt="">
-                        <p>upcoming:線画抽出</p>
+                    <a href="{% url 'app:edge' %}">
+                        <img src="{% static 'app/imgs/flower_edge.jpg' %}" width="290" height="290" alt="">
+                        <p>線画抽出</p>
                     </a>
             </div>
         </article>
     </section>
-<!-- / 3カラム -->
+    <!-- / 3カラム -->
+
+    <!-- 3カラム -->
+    <section class="gridWrapper">
+        <article class="grid">
+            <div class="box">
+                    <a href="{% url 'app:medianFilter' %}">
+                        <img src="{% static 'app/imgs/flower_medianFilter.jpg' %}" width="290" height="290" alt="">
+                        <p>メディアンフィルター</p>
+                    </a>
+            </div>
+        </article>
+        <article class="grid">
+            <div class="box">
+                    <a href="{% url 'app:WBComic' %}">
+                        <img src="{% static 'app/imgs/flower_WBComicFilter.jpg' %}" width="290" height="290" alt="">
+                        <p>漫画風(白黒)</p>
+                    </a>
+            </div>
+        </article>
+        <article class="grid">
+            <div class="box">
+                    <a href="{% url 'app:pencil' %}">
+                        <img src="{% static 'app/imgs/flower_pencil.jpg' %}" width="290" height="290" alt="">
+                        <p>鉛筆風</p>
+                    </a>
+            </div>
+        </article>
+    </section>
+    <!-- / 3カラム -->
+
+    <!-- 3カラム -->
+    <section class="gridWrapper">
+        <article class="grid">
+            <div class="box">
+                    <a href="{% url 'app:AIAnimeArt' %}">
+                        <img src="{% static 'app/imgs/flower_AIAnimation.jpg' %}" width="290" height="290" alt="">
+                        <p>AIアニメ風</p>
+                    </a>
+            </div>
+        </article>
+        <article class="grid">
+            <div class="box">
+                    <a href="{% url 'app:creatingColoringBook' %}">
+                        <img src="{% static 'app/imgs/flower_creatingColoringBook.jpg' %}" width="290" height="290" alt="">
+                        <p>塗り絵化</p>
+                    </a>
+            </div>
+        </article>
+        <article class="grid">
+            <div class="box">
+                    <a href="{% url 'app:stylization' %}">
+                        <img src="{% static 'app/imgs/flower_stylization.jpg' %}" width="290" height="290" alt="">
+                        <p>水彩画風</p>
+                    </a>
+            </div>
+        </article>
+    </section>
+    <!-- / 3カラム -->
+
+    <!-- 3カラム -->
+    <section class="gridWrapper">
+        <article class="grid">
+            <div class="box">
+                    <a href="{% url 'app:grayScale' %}">
+                        <img src="{% static 'app/imgs/flower_grayScale.jpg' %}" width="290" height="290" alt="">
+                        <p>グレースケール</p>
+                    </a>
+            </div>
+        </article>
+    </section>
+    <!-- / 3カラム -->
+
 </div>
 
 {% endblock %}

@@ -9,3 +9,4 @@ opencvFilter/*
 new_design
 app/__pycache__
 app/opencvFilter/Filters/__pycache__
+kyoshoEnv/*

@@ -26,7 +26,7 @@ SECRET_KEY = SECRET_KEY_LS
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "192.168.1.9"]
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost"]
 
 #example.comで開発環境を整えている場合、本番環境ではホスト名を指定する
 #ALLOWED_HOSTS = [

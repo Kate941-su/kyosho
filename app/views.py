@@ -16,6 +16,14 @@ from .opencvFilter.Filters.FilterMosaic import FilterMosaic
 from .opencvFilter.Filters.FilterSubColor import FilterSubColor
 from .opencvFilter.Filters.FilterThreshold import FilterThreshold
 from .opencvFilter.Filters.FilterGauss import FilterGauss
+from .opencvFilter.Filters.FilterEdge import FilterEdge
+from .opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
+from .opencvFilter.Filters.FilterWBComic import FilterWBComic
+from .opencvFilter.Filters.FilterPencil import FilterPencil
+from .opencvFilter.Filters.FilterAIAnimeArt import FilterAIAnimeArt
+from .opencvFilter.Filters.FilterCreatingColoringBook import FilterCreatingColoringBook
+from .opencvFilter.Filters.FilterStylization import FilterStylization
+from .opencvFilter.Filters.FilterGrayScale import FilterGrayScale
 
 RANDOM_WORD_COUNT = 10
 
@@ -148,6 +156,46 @@ def viewFilter(request):
             "kernel" : kernel,
         }
         retHtml = "app/gauss.html"
+    elif (requestName == "/edge/"): # 6. エッジ検出のとき
+        useFilter = FilterEdge(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/edge.html"
+    elif (requestName == "/medianFilter/"): # 7. メディアンフィルターのとき
+        useFilter = FilterMedianFilter(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/medianFilter.html"
+    elif (requestName == "/WBComic/"): # 8. 漫画風(白黒)のとき
+        useFilter = FilterWBComic(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/WBComic.html"
+    elif (requestName == "/pencil/"): # 9. 鉛筆風のとき
+        useFilter = FilterPencil(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/pencil.html"
+    elif (requestName == "/AIAnimeArt/"): # 10 AIアニメ風のとき
+        useFilter = FilterAIAnimeArt(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/AIAnimeArt.html"
+    elif (requestName == "/creatingColoringBook/"): #11 塗り絵化のとき
+        useFilter = FilterCreatingColoringBook(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/creatingColoringBook.html"
+    elif (requestName == "/stylization/"): # 12. 水彩画風のとき
+        useFilter = FilterStylization(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/stylization.html"
+    elif (requestName == "/grayScale/"): # 13. グレースケールのとき
+        useFilter = FilterGrayScale(dstPath)
+        if (hasFileData): # ファイルデータが届いていないとき  
+            useFilter.makePictureForMember()
+        retHtml = "app/grayScale.html"
     if (hasFileData): # ファイルデータが届いていないとき
         cv2.imwrite(dstPath, useFilter.getImage())
     filterAlias = useFilter.getFilterAlias()
