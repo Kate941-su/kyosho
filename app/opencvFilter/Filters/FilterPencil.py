@@ -56,7 +56,7 @@ class FilterPencil(Filter):
     def executePencil(self, img):
         greyImg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         invertImg = cv2.bitwise_not(greyImg)
-        kernelSize = 199
+        kernelSize = 111
         blurImg=cv2.GaussianBlur(invertImg, (kernelSize, kernelSize),0)
         invblurImg=cv2.bitwise_not(blurImg)
         sketchImg=cv2.divide(greyImg, invblurImg, scale=256.0)

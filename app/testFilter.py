@@ -20,11 +20,12 @@ from opencvFilter.Filters.FilterGauss import FilterGauss
 from opencvFilter.Filters.FilterMedianFilter import FilterMedianFilter
 from opencvFilter.Filters.FilterWBComic import FilterWBComic
 from opencvFilter.Filters.FilterPencil import FilterPencil
+from opencvFilter.Filters.FilterAIAnimeArt import FilterAIAnimeArt
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
-path = "./testImages/sample_woman.png"
-testName = "pencil"
+path = "./testImages/katsu.jpg"
+testName = "AIAnimeArt"
 
 # ドット絵風
 if testName == "dotArt":
@@ -88,6 +89,13 @@ if testName == "pencil":
     filterPencil = FilterPencil(path)
     filterPencil.makePictureForMember()
     cv2.imwrite(filterPencil.getFileName(), filterPencil.getImage())
+
+# AIアニメ風
+if testName == "AIAnimeArt":
+    filterAIAnimeArt = FilterAIAnimeArt(path)
+    filterAIAnimeArt.setEditMode(0)
+    filterAIAnimeArt.makePictureForMember()
+    cv2.imwrite(filterAIAnimeArt.getFileName(), filterAIAnimeArt.getImage())
     
 
 #何もしない
