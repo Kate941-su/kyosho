@@ -13,7 +13,8 @@ class FilterManagement:
             "_mosaic" : 2,
             "_subColor" : 3,
             "_threshold" : 4,
-            "_gauss" : 5,
+            "_edge" : 5,
+            "_gauss": 6,
         }
         self.__explain = self.explainFilter(self.filterDict[filterName])            
 
@@ -27,6 +28,8 @@ class FilterManagement:
             return self.exFilterSubColor()
         elif (filterNum == self.filterDict["_threshold"]): # 二値化の説明のとき
             return self.exFilterThreshold()
+        elif (filterNum == self.filterDict["_edge"]): # エッジ検出の説明のとき
+            return self.exFilterEdge()
         elif (filterNum == self.filterDict["_gauss"]): # ガウスぼかしの説明のとき
             return self.exFilterGauss()
 
@@ -45,7 +48,11 @@ class FilterManagement:
     # ドット絵風の説明
     def exFilterDotArt(self):
         return "ドット絵風の説明"
-
+    
+    # エッジ検出の説明
+    def exFilterEdge(self):
+        return "エッジ検出の説明"
+    
     # ガウスぼかしの説明
     def exFilterGauss(self):
         return "ガウスぼかしの説明"
