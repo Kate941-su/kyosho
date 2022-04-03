@@ -24,7 +24,7 @@ from opencvFilter.Filters.FilterAIAnimeArt import FilterAIAnimeArt
 from opencvFilter.Utils.ResourceIOFunction import *
 
 
-path = "./testImages/katsu.jpg"
+path = "./testImages/kitaya.jpg"
 testName = "AIAnimeArt"
 
 # ドット絵風
@@ -93,7 +93,7 @@ if testName == "pencil":
 # AIアニメ風
 if testName == "AIAnimeArt":
     filterAIAnimeArt = FilterAIAnimeArt(path)
-    filterAIAnimeArt.setEditMode(0)
+    filterAIAnimeArt.setEditMode(2)
     filterAIAnimeArt.makePictureForMember()
     cv2.imwrite(filterAIAnimeArt.getFileName(), filterAIAnimeArt.getImage())
     

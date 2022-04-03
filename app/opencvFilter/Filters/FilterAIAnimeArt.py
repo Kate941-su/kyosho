@@ -51,6 +51,7 @@ class FilterAIAnimeArt(Filter):
         
     # 編集モードを選択する
     def setEditMode(self, editMode):
+        assert(0 <= editMode and 3 >= editMode)
         self.editMode = editMode
 
     # numpyイメージをPILイメージにコンバートする
@@ -86,17 +87,6 @@ class FilterAIAnimeArt(Filter):
             out = net(image.to(device), False).cpu()# args.upsample_alignはわからない
             out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
             out = to_pil_image(out)
-            outImageName = "result_"
-            if self.editMode == 0:
-                outImageName += "celeba_"
-            elif self.editMode == 1:
-                outImageName += "facePaint1_"
-            elif self.editMode == 2:
-                outImageName += "facePaint2_"
-            elif self.editMode == 3:
-                outImageName += "paprika_"
-            else :
-                assert(False)
         return np.array(out)
 
     #PILイメージに変換する
