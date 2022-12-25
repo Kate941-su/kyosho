@@ -92,10 +92,10 @@
         </article>
         <article class="grid">
             <div class="box">
-                    <a href="{% url 'app:WBComic' %}">
-                        <img src="{% static 'app/imgs/flower_WBComicFilter.jpg' %}" width="290" height="290" alt="">
-                        <p>漫画風(白黒)</p>
-                    </a>
+                <a href="{% url 'app:grayScale' %}">
+                    <img src="{% static 'app/imgs/flower_grayScale.jpg' %}" width="290" height="290" alt="">
+                    <p>グレースケール</p>
+                </a>
             </div>
         </article>
         <article class="grid">
@@ -137,20 +137,6 @@
         </article>
     </section>
     <!-- / 3カラム -->
-
-    <!-- 3カラム -->
-    <section class="gridWrapper">
-        <article class="grid">
-            <div class="box">
-                    <a href="{% url 'app:grayScale' %}">
-                        <img src="{% static 'app/imgs/flower_grayScale.jpg' %}" width="290" height="290" alt="">
-                        <p>グレースケール</p>
-                    </a>
-            </div>
-        </article>
-    </section>
-    <!-- / 3カラム -->
-
 </div>
 
 {% endblock %}

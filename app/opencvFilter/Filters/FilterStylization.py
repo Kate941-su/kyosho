@@ -54,4 +54,4 @@ class FilterStylization(Filter):
 
     # にじみ度合いを設定する
     def setBleeding(self, bleeding):
-        self.bleeding = bleeding
+        self.bleeding = bleeding * 0.01

@@ -13,6 +13,12 @@
         {% include 'app/htmlComponents/choiceButton.html' %}
         {% include 'app/htmlComponents/pictureDisplay.html' %}
         <!--S パラメータコンポーネント-->
+        <p>
+            <input type="number" name="smoothness" min="1" max="100" step="1" value={{ smoothness }} required>:なめらかさ(%)
+        </p>
+        <p>
+            <input type="number" name="bleeding" min="0" max="100" step="1" value={{ bleeding }} required>:にじみ度合い(%)
+        </p>
         <!--E パラメータコンポーネント-->
         {% include 'app/htmlComponents/recreateButton.html' %}
         {% include 'app/htmlComponents/hiddenContents.html' %}

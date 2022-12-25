@@ -43,12 +43,12 @@ from opencvFilter.Utils.ResourceIOFunction import *
 # "creatingColoringBook"      : 11, # 塗り絵化
 # "stylization"               : 12, # 水彩画風
 # "grayScale"                 : 13, # グレースケール
-picName = "flower.jpg"
+picName = "shimada.jpg"
 if "debugpy" in sys.modules:
     path = "./app/testImages/" + picName
 else:
     path = "./testImages/" + picName
-testName = "creatingColoringBook"
+testName = "AIAnimeArt"
 
 # 1ドット絵風
 if testName == "dotArt":
@@ -131,7 +131,7 @@ elif testName == "AIAnimeArt":
     # 顔加工v1
     # 顔加工v2
     # パプリカ
-    filterAIAnimeArt.setEditMode(3)
+    filterAIAnimeArt.setEditMode(2)
     filterAIAnimeArt.makePictureForMember()
     cv2.imwrite(filterAIAnimeArt.getFileName(), filterAIAnimeArt.getImage())
     

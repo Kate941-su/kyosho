@@ -19,7 +19,7 @@ from ..Utils.ResourceIOFunction import *
 
 # おまじない
 sys.path.append('../')
-FILTER_NAME = "_AIAnimation"
+FILTER_NAME = "_AIAnimeArt"
 FILTER_ALIAS = "AIアニメ風"
 
 class FilterAIAnimeArt(Filter):
@@ -27,7 +27,7 @@ class FilterAIAnimeArt(Filter):
     def __init__(self, imgPath):
         super().__init__(imgPath)
         #編集モード
-        self.editMode = 0
+        self.editMode = 2
         
     # abstractmethod
     # メンバ用の絵を作成する

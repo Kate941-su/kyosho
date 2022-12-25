@@ -189,7 +189,18 @@ def viewFilter(request):
     elif (requestName == "/stylization/"): # 12. 水彩画風のとき
         useFilter = FilterStylization(dstPath)
         if (hasFileData): # ファイルデータが届いていないとき  
+#            smoothness = int(request.POST.get("smoothness"))
+#            bleeding = int(request.POST.get("bleeding"))
+#            useFilter.setSmoothness(smoothness)
+#            useFilter.setBleeding(bleeding)
             useFilter.makePictureForMember()
+        else:
+            smoothness = 60
+            bleeding = 50
+        addDict = {
+#            "smoothness" : smoothness,
+#            "bleeding" : bleeding,
+        }
         retHtml = "app/stylization.html"
     elif (requestName == "/grayScale/"): # 13. グレースケールのとき
         useFilter = FilterGrayScale(dstPath)

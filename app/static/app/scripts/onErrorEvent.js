@@ -1,4 +1,7 @@
-const filterArray = ["dotArt", "mosaic", "threshold", "subColor", "gauss"]
+const filterArray = ["dotArt", "mosaic", "threshold", 
+                     "subColor", "gauss", "edge",
+                     "medianFilter","pencil","AIAnimeArt",
+                     "creatingColoringBook", "stylization", "grayScale"]
 
 // 初期画像配置時の処理
 function onErrorFilterImage(obj){
@@ -17,6 +20,20 @@ function onErrorFilterImage(obj){
         dstImg.setAttribute("src", "/static/app/imgs/flower_subColor.jpg");       
     } else if (filterName == filterArray[4]) { // ガウスぼかしのとき
         dstImg.setAttribute("src", "/static/app/imgs/flower_gauss.jpg");       
+    } else if (filterName == filterArray[5]) { // 線画抽出のとき
+        dstImg.setAttribute("src", "/static/app/imgs/flower_edge.jpg");       
+    } else if (filterName == filterArray[6]) { // メディアンフィルターのとき
+        dstImg.setAttribute("src", "/static/app/imgs/flower_medianFilter.jpg");       
+    } else if (filterName == filterArray[7]) { // 鉛筆風のとき
+        dstImg.setAttribute("src", "/static/app/imgs/flower_pencil.jpg");       
+    } else if (filterName == filterArray[8]) { // AIアニメ風のとき
+        dstImg.setAttribute("src", "/static/app/imgs/flower_AIAnimation.jpg");       
+    } else if (filterName == filterArray[9]) { // 塗り絵化のとき
+        dstImg.setAttribute("src", "/static/app/imgs/flower_creatingColoringBook.jpg");       
+    } else if (filterName == filterArray[10]) { // 水彩画風のとき
+        dstImg.setAttribute("src", "/static/app/imgs/flower_stylization.jpg");       
+    } else if (filterName == filterArray[11]) { // グレースケールのとき
+        dstImg.setAttribute("src", "/static/app/imgs/flower_grayScale.jpg");       
     } else {
         console.assert(false, '%sは定義されていません。', filterName);
     }
