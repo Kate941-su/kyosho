@@ -1,4 +1,4 @@
-DjangoWebProject1/__pycache__
+DjangoWebProject1/__pycache__/*
 app/__pycache__
 *.bat
 db.sqlite3
@@ -10,3 +10,5 @@ new_design
 app/__pycache__
 app/opencvFilter/Filters/__pycache__
 kyoshoEnv/*
+*.pyc
+*.png
